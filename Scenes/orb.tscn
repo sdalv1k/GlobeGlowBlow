@@ -1,6 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://1vaojjlwc60r"]
+[gd_scene load_steps=7 format=3 uid="uid://1vaojjlwc60r"]
 
 [ext_resource type="Script" path="res://Scripts/orb.gd" id="1_6yy2d"]
+[ext_resource type="AudioStream" uid="uid://qo0nlcxaqjft" path="res://Sound/Item Pick up (Counter Strike Source) - Sound Effect for editing.mp3" id="2_vthvo"]
+[ext_resource type="AudioStream" uid="uid://bg4jbhjck0gj" path="res://Sound/Sound Effect Throw Sound (No Copyright).mp3" id="3_uvhhf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gfegg"]
 
@@ -11,6 +13,9 @@ backlight = Color(0.868985, 0.868985, 0.868985, 1)
 [sub_resource type="SphereMesh" id="SphereMesh_dg2co"]
 
 [node name="orb" type="RigidBody3D"]
+top_level = true
+collision_layer = 65
+collision_mask = 65
 mass = 0.254
 script = ExtResource("1_6yy2d")
 
@@ -19,7 +24,21 @@ shape = SubResource("SphereShape3D_gfegg")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 shadow_enabled = true
+omni_range = 4096.0
+omni_attenuation = 0.5
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_f45i4")
 mesh = SubResource("SphereMesh_dg2co")
+
+[node name="pickup_sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_vthvo")
+
+[node name="trow_sound" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("3_uvhhf")
+
+[node name="SpotLight3D" type="SpotLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0.357015, 0)
+light_energy = 5.04
+spot_range = 6.864
+spot_angle = 81.0

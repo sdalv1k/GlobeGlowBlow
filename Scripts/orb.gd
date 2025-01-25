@@ -4,6 +4,14 @@ extends RigidBody3D
 @onready var original_collision_layer = collision_layer
 @onready var original_colission_mask = collision_mask
 
+@onready var pickup_sound = $pickup_sound
+@onready var trow_sound = $trow_sound
+
+@onready var spot_light: SpotLight3D = $SpotLight3D
+
+
+
+
 var original_transform
 var speed = 5.0
 var picked_up_by = null
@@ -19,9 +27,13 @@ func _process(delta: float) -> void:
 	if !picked_up_by: return
 	#global_transform.origin = lerp(global_transform.origin, picked_up_by.global_transform.origin, speed * delta)
 	global_transform.origin = picked_up_by.global_transform.origin
-	pass
-	#if is_in_hand:
-		#$".".position = $"../Player".position
+	
+	#spot_light.set_position(position)
+	#print(spot_light.rotation)
+	
+	#var tempPos = $"../OmniLight3D".get_position() 
+	#set_position(tempPos)
+	
 	
 func _move_to_parent(from_parent, to_parent):
 	from_parent.remove_child(self)
@@ -29,6 +41,7 @@ func _move_to_parent(from_parent, to_parent):
 		
 
 func pick_up(by):
+	pickup_sound.play()
 	print("Picking up")
 	
 	if picked_up_by == by:
@@ -54,6 +67,7 @@ func pick_up(by):
 	
 
 func let_go(impulse = Vector3(0.0, 0.0, 0.0)):
+	trow_sound.play()
 	print("trowing (letting go)")
 	
 	if picked_up_by:
@@ -71,8 +85,7 @@ func let_go(impulse = Vector3(0.0, 0.0, 0.0)):
 		
 		
 		picked_up_by = null
-		
-	
+
 
 
 func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int, extra_arg_0: NodePath) -> void:

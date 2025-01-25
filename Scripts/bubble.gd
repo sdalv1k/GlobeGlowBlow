@@ -6,6 +6,9 @@ var move_end: float = 3.5
 var direction: int = 1
 @onready var radius: float = $CollisionShape3D.shape.radius
 
+# Death sound
+@onready var death_sound = $"Area3D/Sprite3D/death sound"
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	move_end = radius * 0.5
@@ -28,6 +31,17 @@ func _start_expanding():
 	
 func _start_shrinking():
 	direction = -1
+	
+func insta_remove():
+	$".".queue_free()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
-	_start_shrinking()
+	if body.has_method("pick_up"):	
+		if body.picked_up_by:
+			return
+	
+	print("HIT GOBLIN")
+	death_sound.play()
+	$Area3D/Sprite3D.visible = false
+	#_start_shrinking()
+	insta_remove()

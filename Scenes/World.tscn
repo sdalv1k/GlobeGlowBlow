@@ -1,8 +1,9 @@
-[gd_scene load_steps=23 format=4 uid="uid://gskyetjwxluq"]
+[gd_scene load_steps=25 format=4 uid="uid://gskyetjwxluq"]
 
 [ext_resource type="Texture2D" uid="uid://bsf76ccywekq4" path="res://Textures/seamless-textured-grass-natural-grass-pattern/Cartoon_green_texture_grass.jpg" id="1_hrdcr"]
 [ext_resource type="Script" path="res://Scripts/character_body_3d.gd" id="1_vrkk0"]
 [ext_resource type="PackedScene" uid="uid://c1c2fbnbosnei" path="res://3dObjects/hand3d.blend" id="2_r3p26"]
+[ext_resource type="AudioStream" uid="uid://ef75px6pl3fv" path="res://Sound/snow-step-2-102324.mp3" id="3_ir56w"]
 [ext_resource type="Script" path="res://Scripts/bubble_spawner.gd" id="3_mdq11"]
 [ext_resource type="PackedScene" uid="uid://1vaojjlwc60r" path="res://Scenes/orb.tscn" id="3_xlpgb"]
 
@@ -87,11 +88,13 @@ material = SubResource("StandardMaterial3D_lyp8d")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_icj4n"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_wt3fs"]
+
 [node name="World" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-light_color = Color(0.568973, 0.568973, 0.568973, 1)
+light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -124,6 +127,9 @@ transform = Transform3D(1.59632, 0.0297431, -0.971925, 0.972255, -0.018907, 1.59
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player/Head"]
 omni_range = 39.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Player"]
+stream = ExtResource("3_ir56w")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.20857)
@@ -756,7 +762,7 @@ color = Color(0.764706, 0, 0, 0.211765)
 
 [node name="orb" parent="." instance=ExtResource("3_xlpgb")]
 transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, 0, 3.31304, -3.02232)
-collision_layer = 0
+collision_layer = 64
 angular_damp = 1.0
 
 [node name="Area3D" type="Area3D" parent="orb"]
@@ -788,6 +794,14 @@ mesh = SubResource("SphereMesh_c1i06")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
 visible = false
 shape = SubResource("SphereShape3D_icj4n")
+
+[node name="DirectionalLight3D2" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.981773, -0.115798, 0.150704, -0.165218, -0.128084, 0.977905, -0.0939367, -0.98498, -0.144882, -5.60848, 4.09356, 65.6084)
+visible = false
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="DirectionalLight3D2"]
+mesh = SubResource("SphereMesh_wt3fs")
 
 [connection signal="player_hit" from="Player" to="." method="_on_player_player_hit"]
 [connection signal="body_entered" from="orb/Area3D" to="Player" method="_on_area_3d_body_entered"]

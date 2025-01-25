@@ -13,13 +13,15 @@ var head_t = 0.0
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 
+@onready var step_sound = $Footsteps
+
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
 
 signal player_hit
 
 # Orb stuff:
-var trow_force:float = 5
+var trow_force:float = 6
 var picked_up = null
 @onready var collider = $"../orb"
 var pickup_cooldown_time = 0
@@ -27,6 +29,7 @@ var pickup_cooldown = 0
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
@@ -35,11 +38,11 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(60))
 
 func _physics_process(delta: float) -> void:
+	
 	if !picked_up && pickup_cooldown >= 0:
 		pickup_cooldown -= delta
 		if pickup_cooldown < 0:
 			pickup_cooldown = 0
-	print(pickup_cooldown) 
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -104,13 +107,12 @@ func hit():
 
 
 func pickup_orb():
-	print("ENTERED")
 	if picked_up: return
 	if pickup_cooldown > 0: return
 	elif collider.has_method("pick_up"):
 		collider.pick_up($Head/Camera3D/hand3d/Pivot)
 		picked_up = collider
-	
+	 
 
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
