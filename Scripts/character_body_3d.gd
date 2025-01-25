@@ -13,6 +13,7 @@ var head_t = 0.0
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
+@onready var animation_tree: AnimationTree = $Head/Camera3D/player/AnimationTree
 
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
@@ -91,14 +92,14 @@ func _physics_process(delta: float) -> void:
 	
 	
 	if Input.is_action_just_pressed("throw"):
-		pickup_cooldown = pickup_cooldown_time
-		if !picked_up: return
-		picked_up.let_go(-pivot.global_transform.basis.z * trow_force)
-		picked_up = null
+		animation_tree.set("parameters/conditions/throw", true)
 		
-		
-		
-	
+func _throw_finished():
+	animation_tree.set("parameters/conditions/throw", false)
+	pickup_cooldown = pickup_cooldown_time
+	if !picked_up: return
+	picked_up.let_go(-pivot.global_transform.basis.z.normalized() * trow_force)
+	picked_up = null
 
 func _headshake(t: float) -> Vector3:
 	var pos = Vector3.ZERO
