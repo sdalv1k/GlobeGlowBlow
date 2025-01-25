@@ -37,6 +37,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(60))
 
 func _physics_process(delta: float) -> void:
+	#SimpleGrass.set_player_position(global_position)
 	if !picked_up && pickup_cooldown >= 0:
 		pickup_cooldown -= delta
 		if pickup_cooldown < 0:
