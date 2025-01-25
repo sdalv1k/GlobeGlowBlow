@@ -1,0 +1,5 @@
+[gd_scene load_steps=2 format=3 uid="uid://bdd0gu3aj4j0u"]
+
+[ext_resource type="PackedScene" uid="uid://bbusdnogc7nu2" path="res://Models/House/Fantasy House/Fantasy_House.dae" id="1_auypl"]
+
+[node name="Fantasy_House" instance=ExtResource("1_auypl")]
