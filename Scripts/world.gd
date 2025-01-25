@@ -15,7 +15,6 @@ func _ready() -> void:
 	pass
 
 func _process(delta: float) -> void:
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	if Input.is_action_just_pressed("esc"):
 		if paused:
 			unpause()
