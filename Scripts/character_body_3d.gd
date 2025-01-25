@@ -12,6 +12,7 @@ var head_t = 0.0
 
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
+@onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
 
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
@@ -47,6 +48,12 @@ func _physics_process(delta: float) -> void:
 	# Handle jump.
 	if Input.is_action_just_pressed("jump") and is_on_floor():
 		velocity.y = JUMP_VELOCITY
+		
+	if Input.is_action_just_pressed("pickup"):
+		print("pickup")
+		if picked_up == null:
+			pickup_orb()
+			
 
 	if Input.is_action_pressed("run"):
 		speed = RUN_SPEED
@@ -86,7 +93,7 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("throw"):
 		pickup_cooldown = pickup_cooldown_time
 		if !picked_up: return
-		picked_up.let_go(-$Head/Camera3D/hand3d/Pivot.global_transform.basis.z * trow_force)
+		picked_up.let_go(-pivot.global_transform.basis.z * trow_force)
 		picked_up = null
 		
 		
@@ -108,7 +115,7 @@ func pickup_orb():
 	if picked_up: return
 	if pickup_cooldown > 0: return
 	elif collider.has_method("pick_up"):
-		collider.pick_up($Head/Camera3D/hand3d/Pivot)
+		collider.pick_up(pivot)
 		picked_up = collider
 	
 

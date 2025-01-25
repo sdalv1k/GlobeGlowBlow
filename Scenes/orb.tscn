@@ -3,12 +3,15 @@
 [ext_resource type="Script" path="res://Scripts/orb.gd" id="1_6yy2d"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gfegg"]
+radius = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f45i4"]
 backlight_enabled = true
 backlight = Color(0.868985, 0.868985, 0.868985, 1)
 
 [sub_resource type="SphereMesh" id="SphereMesh_dg2co"]
+radius = 0.25
+height = 0.5
 
 [node name="orb" type="RigidBody3D"]
 mass = 0.254
