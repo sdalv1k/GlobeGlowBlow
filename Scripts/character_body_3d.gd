@@ -40,7 +40,6 @@ func _physics_process(delta: float) -> void:
 		pickup_cooldown -= delta
 		if pickup_cooldown < 0:
 			pickup_cooldown = 0
-	print(pickup_cooldown) 
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
@@ -93,7 +92,10 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("throw"):
 		pickup_cooldown = pickup_cooldown_time
 		if !picked_up: return
-		picked_up.let_go(-pivot.global_transform.basis.z * trow_force)
+		#var trow_dir = $Head/Camera3D.global_transform.basis
+		var trow_dir = -pivot.global_transform.basis.z * trow_force
+		picked_up.let_go(trow_dir)
+		#picked_up.let_go(-pivot.global_transform.basis.z * trow_force)
 		picked_up = null
 		
 		
