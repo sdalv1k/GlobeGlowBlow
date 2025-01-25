@@ -42,14 +42,11 @@ void fragment() {
 			min_color = colors[i];
 		}
 	}
-		
-	
+
+
 	ALBEDO.rgb = min_color.rgb;
 }
 
 void vertex() {
   POSITION = vec4(VERTEX, 1.0);
 }
-
-
-	

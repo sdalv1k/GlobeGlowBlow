@@ -4,7 +4,7 @@ var speed: float = 2.0
 var moved: float = 0.0
 var move_end: float = 3.5
 var direction: int = 1
-@onready var radius: float = $CollisionShape3D.shape.radius
+@onready var radius: float = 20
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
