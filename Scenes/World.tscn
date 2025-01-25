@@ -1,6 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://gskyetjwxluq"]
+[gd_scene load_steps=14 format=3 uid="uid://gskyetjwxluq"]
 
 [ext_resource type="Script" path="res://Scripts/character_body_3d.gd" id="1_vrkk0"]
+[ext_resource type="PackedScene" uid="uid://c1c2fbnbosnei" path="res://3dObjects/hand3d.blend" id="2_r3p26"]
+[ext_resource type="PackedScene" uid="uid://d2rua2kabokjl" path="res://Scenes/orb.tscn" id="3_xlpgb"]
 
 [sub_resource type="Environment" id="Environment_lsqx6"]
 background_mode = 2
@@ -32,10 +34,13 @@ albedo_color = Color(0.270222, 0.270222, 0.270222, 1)
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7ccp"]
 albedo_color = Color(0.28485, 0.28485, 0.28485, 1)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_wfjeo"]
+
 [node name="World" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+visible = false
 light_color = Color(0, 0, 0, 1)
 shadow_enabled = true
 
@@ -44,6 +49,7 @@ environment = SubResource("Environment_lsqx6")
 
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15352, 0)
+collision_layer = 3
 script = ExtResource("1_vrkk0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
@@ -59,7 +65,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.82164, 0)
 
 [node name="Camera3D" type="Camera3D" parent="Player/Head"]
 
+[node name="hand3d" parent="Player/Head/Camera3D" instance=ExtResource("2_r3p26")]
+transform = Transform3D(0.456906, 0.278284, 0.00445647, 0.164224, -0.262648, -0.436201, -0.224705, 0.373897, -0.309732, 0.187286, -0.224408, -2.29927)
+
+[node name="Pivot" type="Node3D" parent="Player/Head/Camera3D/hand3d"]
+transform = Transform3D(1.59632, 0.0297431, -0.971925, 0.972255, -0.018907, 1.59628, 0.0155698, -1.86883, -0.0316182, 0.336462, 1.31576, -0.367385)
+
 [node name="OmniLight3D" type="OmniLight3D" parent="Player/Head"]
+visible = false
 omni_range = 8.0
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
@@ -128,4 +141,15 @@ offset_right = 3075.0
 offset_bottom = 1631.0
 color = Color(0.764706, 0, 0, 0.211765)
 
+[node name="orb" parent="." instance=ExtResource("3_xlpgb")]
+transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, 0, 3.31304, -3.02232)
+collision_layer = 0
+
+[node name="Area3D" type="Area3D" parent="orb"]
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="orb/Area3D"]
+shape = SubResource("BoxShape3D_wfjeo")
+
 [connection signal="player_hit" from="Player" to="." method="_on_player_player_hit"]
+[connection signal="body_entered" from="orb/Area3D" to="Player" method="_on_area_3d_body_entered"]

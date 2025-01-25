@@ -1,0 +1,25 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2rua2kabokjl"]
+
+[ext_resource type="Script" path="res://Scripts/orb.gd" id="1_6yy2d"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_gfegg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f45i4"]
+backlight_enabled = true
+backlight = Color(0.868985, 0.868985, 0.868985, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_dg2co"]
+
+[node name="orb" type="RigidBody3D"]
+mass = 0.254
+script = ExtResource("1_6yy2d")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_gfegg")
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = SubResource("StandardMaterial3D_f45i4")
+mesh = SubResource("SphereMesh_dg2co")
