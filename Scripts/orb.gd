@@ -3,7 +3,7 @@ extends RigidBody3D
 @onready var original_parent = get_parent()
 @onready var original_collision_layer = collision_layer
 @onready var original_colission_mask = collision_mask
-@onready var pivot: Node3D = $Head/Camera3D/hand3d/Pivot
+@onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
 
 var original_transform
 var speed = 20.0

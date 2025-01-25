@@ -14,6 +14,7 @@ var head_t = 0.0
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
 @onready var animation_tree: AnimationTree = $Head/Camera3D/player/AnimationTree
+var trow_force = 5.0
 
 const BASE_FOV = 75.0
 const FOV_CHANGE = 1.5
