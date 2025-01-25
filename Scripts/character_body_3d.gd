@@ -21,7 +21,11 @@ const FOV_CHANGE = 1.5
 signal player_hit
 
 # Orb stuff:
-var trow_force:float = 5
+var hold_time = 0.0 # Tracks how long the button is held
+var max_hold_time = 2.0 # Max time to charge the throw
+var base_throw_force = 2.0 # Minimum throw force
+var max_throw_force = 10.0 # Maximum throw force
+
 var picked_up = null
 @onready var collider = $"../orb"
 var pickup_cooldown_time = 0
