@@ -6,7 +6,7 @@ extends RigidBody3D
 @onready var pivot: Node3D = $Head/Camera3D/hand3d/Pivot
 
 var original_transform
-var speed = 5.0
+var speed = 20.0
 var picked_up_by = null
 var done_learp = false
 
@@ -17,12 +17,40 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !picked_up_by: return
-	#global_transform.origin = lerp(global_transform.origin, picked_up_by.global_transform.origin, speed * delta)
-	global_transform.origin = picked_up_by.global_transform.origin
-	pass
-	#if is_in_hand:
-		#$".".position = $"../Player".position
+	if !picked_up_by:
+		return
+		
+		
+
+	# Current position
+	var current_position = global_transform.origin
+
+	# Target position
+	var target_position = picked_up_by.global_transform.origin
+	
+	if done_learp:
+		global_transform.origin = target_position
+		return
+	
+	var distance_to_hand = current_position.distance_to(target_position)
+	if distance_to_hand < 0.1:
+		done_learp = true
+		
+
+	# Calculate the direction to the target
+	var direction = (target_position - current_position).normalized()
+
+	# Move a fixed distance toward the target per frame
+	var distance_to_move = speed * delta
+
+	# Check if we're about to overshoot the target
+	if current_position.distance_to(target_position) <= distance_to_move:
+		# Snap to the target position
+		global_transform.origin = target_position
+	else:
+		# Move toward the target at a constant speed
+		global_transform.origin += direction * distance_to_move
+
 	
 func _move_to_parent(from_parent, to_parent):
 	from_parent.remove_child(self)
@@ -55,7 +83,10 @@ func pick_up(by):
 	
 
 func let_go(impulse = Vector3(0.0, 0.0, 0.0)):
+	print(impulse)
 	print("trowing (letting go)")
+	
+	done_learp = false
 	
 	if picked_up_by:
 		var t = global_transform
@@ -65,6 +96,8 @@ func let_go(impulse = Vector3(0.0, 0.0, 0.0)):
 		
 		global_transform = t
 		#freeze_mode = RigidBody3D.FREEZE_MODE_KINEMATIC
+		
+		linear_velocity = Vector3(0,0,0)
 		
 		#collision_layer = original_colission_mask
 		#collision_mask = original_collision_layer
