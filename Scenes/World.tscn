@@ -1,9 +1,13 @@
-[gd_scene load_steps=20 format=4 uid="uid://gskyetjwxluq"]
+[gd_scene load_steps=24 format=4 uid="uid://gskyetjwxluq"]
 
+[ext_resource type="Script" path="res://Scripts/world.gd" id="1_8rh5t"]
 [ext_resource type="Texture2D" uid="uid://bsf76ccywekq4" path="res://Textures/seamless-textured-grass-natural-grass-pattern/Cartoon_green_texture_grass.jpg" id="1_hrdcr"]
 [ext_resource type="Script" path="res://Scripts/bubble_spawner.gd" id="3_mdq11"]
 [ext_resource type="PackedScene" uid="uid://1vaojjlwc60r" path="res://Scenes/orb.tscn" id="3_xlpgb"]
 [ext_resource type="PackedScene" uid="uid://bpdf1gjhw70bd" path="res://Scenes/player.tscn" id="4_oyf42"]
+[ext_resource type="PackedScene" uid="uid://bdpxnvwoc60al" path="res://Scenes/hud.tscn" id="5_n5b6l"]
+[ext_resource type="PackedScene" uid="uid://3xpju8yrcqha" path="res://Scenes/pause_menu.tscn" id="6_lhrir"]
+[ext_resource type="PackedScene" uid="uid://4l5xdb2636vx" path="res://Scenes/game_over.tscn" id="8_v06mi"]
 
 [sub_resource type="Sky" id="Sky_21u14"]
 
@@ -82,6 +86,7 @@ material = SubResource("StandardMaterial3D_lyp8d")
 [sub_resource type="SphereShape3D" id="SphereShape3D_icj4n"]
 
 [node name="World" type="Node3D"]
+script = ExtResource("1_8rh5t")
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
@@ -756,5 +761,13 @@ visible = false
 shape = SubResource("SphereShape3D_icj4n")
 
 [node name="Player" parent="." instance=ExtResource("4_oyf42")]
+
+[node name="HUD" parent="." instance=ExtResource("5_n5b6l")]
+
+[node name="pauseMenu" parent="." instance=ExtResource("6_lhrir")]
+visible = false
+
+[node name="GameOver" parent="." instance=ExtResource("8_v06mi")]
+visible = false
 
 [connection signal="timeout" from="Bubbles/SpawnTimer" to="Bubbles" method="_on_spawn_timer_timeout"]

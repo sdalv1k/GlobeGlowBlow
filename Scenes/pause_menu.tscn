@@ -1,0 +1,50 @@
+[gd_scene load_steps=3 format=3 uid="uid://3xpju8yrcqha"]
+
+[ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="1_0wwxd"]
+[ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_q8adr"]
+
+[node name="pauseMenu" type="CanvasLayer"]
+process_mode = 2
+script = ExtResource("1_q8adr")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1156.0
+offset_bottom = 650.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = -149.5
+offset_right = 189.0
+offset_bottom = 149.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0wwxd")
+theme_override_font_sizes/font_size = 71
+text = "Resume Game"
+
+[node name="Restart" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0wwxd")
+theme_override_font_sizes/font_size = 76
+text = "Restart"
+
+[node name="Quit" type="Button" parent="Control/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("1_0wwxd")
+theme_override_font_sizes/font_size = 61
+text = "Quit"
+
+[connection signal="button_down" from="Control/VBoxContainer/Resume" to="." method="_on_resume_button_down"]
+[connection signal="button_down" from="Control/VBoxContainer/Restart" to="." method="_on_restart_button_down"]
+[connection signal="button_down" from="Control/VBoxContainer/Quit" to="." method="_on_button_button_down"]
