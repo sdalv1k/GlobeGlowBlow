@@ -1,6 +1,6 @@
 extends AnimatableBody3D
 
-var speed: float = 2.0
+var speed: float = 0.2
 var moved: float = 0.0
 var move_end: float = 3.5
 var direction: int = 1
@@ -8,7 +8,7 @@ var direction: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	move_end = radius * 0.5
+	move_end = radius * 0.5   
 
 func _physics_process(delta: float) -> void:
 	var tmp_moved = speed * direction * delta

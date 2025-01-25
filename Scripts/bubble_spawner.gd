@@ -1,9 +1,9 @@
 extends Node3D
 
-@onready var topleft: Node3D = $SpawnPoints/topleft
-@onready var topright: Node3D = $SpawnPoints/topright
-@onready var bottomleft: Node3D = $SpawnPoints/bottomleft
-@onready var bottomright: Node3D = $SpawnPoints/bottomright
+@onready var topleft: Node3D = $SpawnArea/topleft
+@onready var topright: Node3D = $SpawnArea/topright
+@onready var bottomleft: Node3D = $SpawnArea/bottomleft
+@onready var bottomright: Node3D = $SpawnArea/bottomright
 
 @onready var spawns: Node3D = $SpawnPoints
 @onready var bubbles: Node3D = $Bubbles
@@ -12,8 +12,8 @@ var bubble = load("res://Scenes/Bubble.tscn")
 var active_spawns = {}
 
 const radius = 20.0
-const GRID_COLUMNS = 10
-const GRID_ROWS = 10
+const GRID_COLUMNS = 3
+const GRID_ROWS = 3
 
 func _ready() -> void:
 	_create_spawn_points()
@@ -27,9 +27,13 @@ func _create_spawn_points() -> void:
 	var top_left_pos = topleft.global_transform.origin
 	var top_right_pos = topright.global_transform.origin
 	var bottom_left_pos = bottomleft.global_transform.origin
-
+	
+	top_left_pos.x += radius
+	top_right_pos.x -= radius
+	bottom_left_pos.x += radius
+	
 	var x_step = (top_right_pos.x - top_left_pos.x) / (GRID_COLUMNS - 1)
-	var z_step = (bottom_left_pos.z - top_left_pos.z) / (GRID_ROWS - 1)
+	var z_step = (bottom_left_pos.z - top_left_pos.z - 2*radius) / (GRID_ROWS - 1)
 
 	# Generate spawn points within the rectangle
 	for row in range(GRID_ROWS):
@@ -38,7 +42,7 @@ func _create_spawn_points() -> void:
 			spawn_point.position = Vector3(
 				top_left_pos.x + col * x_step,
 				top_left_pos.y - radius,  # Assume the spawn plane is flat
-				top_left_pos.z + row * z_step
+				top_left_pos.z + row * z_step + radius
 			)
 			spawns.add_child(spawn_point)
 
