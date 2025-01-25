@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://fc7m0qk5jmt6"]
+
+[ext_resource type="PackedScene" uid="uid://c1c2fbnbosnei" path="res://3dObjects/hand3d.blend" id="1_no3ra"]
+
+[node name="hand3d" instance=ExtResource("1_no3ra")]
+
+[node name="Hand_2019_001" parent="." index="0"]
+sorting_offset = 10.0

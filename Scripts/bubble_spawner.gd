@@ -9,7 +9,7 @@ var active_spawns = {}
 var radius = 20.0
 const GRID_COLUMNS = 10
 const GRID_ROWS = 10
-const OFFSET = 4.0
+const OFFSET = 10.0
 
 func _ready() -> void:
 	_create_spawn_points()

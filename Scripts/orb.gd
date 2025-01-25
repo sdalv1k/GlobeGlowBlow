@@ -23,7 +23,10 @@ func _process(delta: float) -> void:
 	#if is_in_hand:
 		#$".".position = $"../Player".position
 	
-
+func _move_to_parent(from_parent, to_parent):
+	from_parent.remove_child(self)
+	to_parent.add_child(self)
+		
 
 func pick_up(by):
 	print("Picking up")
@@ -41,8 +44,7 @@ func pick_up(by):
 	#collision_layer = 0
 	#collision_mask = 0
 	
-	original_parent.remove_child(self)
-	picked_up_by.add_child(self)
+	call_deferred("_move_to_parent", original_parent, picked_up_by)
 	
 		
 	

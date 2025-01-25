@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d20q3ydycjc2n"]
+[gd_scene load_steps=6 format=3 uid="uid://ci7muo52jbkab"]
 
 [ext_resource type="Script" path="res://Scripts/bubble.gd" id="1_2snt8"]
 [ext_resource type="Texture2D" uid="uid://ckp33fwfo31jm" path="res://Assets/Cartoon_green_texture_grass.jpg" id="1_eayjf"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_oxpar"]
+albedo_color = Color(0.252028, 0.252028, 0.252028, 1)
 albedo_texture = ExtResource("1_eayjf")
 uv1_scale = Vector3(0.5, 0.5, 0.5)
 uv1_triplanar = true

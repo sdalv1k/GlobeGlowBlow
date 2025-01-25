@@ -1,9 +1,10 @@
-[gd_scene load_steps=15 format=3 uid="uid://gskyetjwxluq"]
+[gd_scene load_steps=23 format=4 uid="uid://gskyetjwxluq"]
 
+[ext_resource type="Texture2D" uid="uid://bsf76ccywekq4" path="res://Textures/seamless-textured-grass-natural-grass-pattern/Cartoon_green_texture_grass.jpg" id="1_hrdcr"]
 [ext_resource type="Script" path="res://Scripts/character_body_3d.gd" id="1_vrkk0"]
 [ext_resource type="PackedScene" uid="uid://c1c2fbnbosnei" path="res://3dObjects/hand3d.blend" id="2_r3p26"]
 [ext_resource type="Script" path="res://Scripts/bubble_spawner.gd" id="3_mdq11"]
-[ext_resource type="PackedScene" path="res://Scenes/orb.tscn" id="3_xlpgb"]
+[ext_resource type="PackedScene" uid="uid://1vaojjlwc60r" path="res://Scenes/orb.tscn" id="3_xlpgb"]
 
 [sub_resource type="Sky" id="Sky_21u14"]
 
@@ -24,25 +25,73 @@ polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Arr
 agent_radius = 0.3
 agent_max_slope = 60.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jwkoj"]
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_er7k3"]
-albedo_color = Color(0.270222, 0.270222, 0.270222, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7ccp"]
-albedo_color = Color(0.28485, 0.28485, 0.28485, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f45sk"]
 albedo_color = Color(0.187176, 0.187176, 0.187176, 1)
+albedo_texture = ExtResource("1_hrdcr")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0353"]
+resource_name = "Wood"
+cull_mode = 2
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_dxqmh"]
+_surfaces = [{
+"aabb": AABB(-0.119546, 0.0096662, -0.107963, 3.59983, 3.36369, 0.261839),
+"format": 34359742465,
+"index_count": 576,
+"index_data": PackedByteArray("AQAHAAMAAQAFAAcABwACAAMABwAGAAIAAQAEAAUAAQAAAAQABAACAAYABAAAAAIACQAPAAsACQANAA8ADwAKAAsADwAOAAoACQAMAA0ACQAIAAwADAAKAA4ADAAIAAoAEQAXABMAEQAVABcAFwASABMAFwAWABIAEQAUABUAEQAQABQAFAASABYAFAAQABIAGQAfABsAGQAdAB8AHwAaABsAHwAeABoAGQAcAB0AGQAYABwAHAAaAB4AHAAYABoAIQAnACMAIQAlACcAJwAiACMAJwAmACIAIQAkACUAIQAgACQAJAAiACYAJAAgACIAKQAvACsAKQAtAC8ALwAqACsALwAuACoAKQAsAC0AKQAoACwALAAqAC4ALAAoACoAMQA3ADMAMQA1ADcANwAyADMANwA2ADIAMQA0ADUAMQAwADQANAAyADYANAAwADIAOQA/ADsAOQA9AD8APwA6ADsAPwA+ADoAOQA8AD0AOQA4ADwAPAA6AD4APAA4ADoAQQBHAEMAQQBFAEcARwBCAEMARwBGAEIAQQBEAEUAQQBAAEQARABCAEYARABAAEIASQBPAEsASQBNAE8ATwBKAEsATwBOAEoASQBMAE0ASQBIAEwATABKAE4ATABIAEoAUQBXAFMAUQBVAFcAVwBSAFMAVwBWAFIAUQBUAFUAUQBQAFQAVABSAFYAVABQAFIAWQBfAFsAWQBdAF8AXwBaAFsAXwBeAFoAWQBcAF0AWQBYAFwAXABaAF4AXABYAFoAYQBnAGMAYQBlAGcAZwBiAGMAZwBmAGIAYQBkAGUAYQBgAGQAZABiAGYAZABgAGIAaQBvAGsAaQBtAG8AbwBqAGsAbwBuAGoAaQBsAG0AaQBoAGwAbABqAG4AbABoAGoAcQB3AHMAcQB1AHcAdwByAHMAdwB2AHIAcQB0AHUAcQBwAHQAdAByAHYAdABwAHIAeQB/AHsAeQB9AH8AfwB6AHsAfwB+AHoAeQB8AH0AeQB4AHwAfAB6AH4AfAB4AHoAgQCHAIMAgQCFAIcAhwCCAIMAhwCGAIIAgQCEAIUAgQCAAIQAhACCAIYAhACAAIIAiQCPAIsAiQCNAI8AjwCKAIsAjwCOAIoAiQCMAI0AiQCIAIwAjACKAI4AjACIAIoAkgCRAJAAkgCTAJEAkACVAJQAkACRAJUAlACXAJYAlACVAJcAkwCVAJEAkwCXAJUAlgCTAJIAlgCXAJMAlgCQAJQAlgCSAJAAmQCaAJsAmQCYAJoAogChAKAAogCjAKEAnwCcAJ0AnwCeAJwAmwCeAJ8AmwCaAJ4AnQCYAJkAnQCcAJgAmACeAJoAmACcAJ4AowClAKEAowCnAKUApgCjAKIApgCnAKMAoAClAKQAoAChAKUApACnAKYApAClAKcApgCgAKQApgCiAKAAnQCbAJ8AnQCZAJsAqQCvAKsAqQCtAK8AqQCsAK0AqQCoAKwArACqAK4ArACoAKoAqwCoAKkAqwCqAKgArwCqAKsArwCuAKoArQCuAK8ArQCsAK4A"),
+"name": "Wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 176,
+"vertex_data": PackedByteArray("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")
+}]
+blend_shape_mode = 0
+
+[sub_resource type="ArrayMesh" id="ArrayMesh_pyruk"]
+resource_name = "LowPolyFencePack_Cube_019"
+_surfaces = [{
+"aabb": AABB(-0.119546, 0.0096662, -0.107963, 3.59983, 3.36369, 0.261839),
+"attribute_data": PackedByteArray("xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+xGRGPwjWhT7EZEY/CNaFPsRkRj8I1oU+"),
+"format": 34359742487,
+"index_count": 576,
+"index_data": PackedByteArray("AwAPAAcAAwALAA8ADgAEAAYADgAMAAQAAgAIAAoAAgAAAAgACQAFAA0ACQABAAUAEwAfABcAEwAbAB8AHgAUABYAHgAcABQAEgAYABoAEgAQABgAGQAVAB0AGQARABUAIwAvACcAIwArAC8ALgAkACYALgAsACQAIgAoACoAIgAgACgAKQAlAC0AKQAhACUAMwA/ADcAMwA7AD8APgA0ADYAPgA8ADQAMgA4ADoAMgAwADgAOQA1AD0AOQAxADUAQwBPAEcAQwBLAE8ATgBEAEYATgBMAEQAQgBIAEoAQgBAAEgASQBFAE0ASQBBAEUAUwBfAFcAUwBbAF8AXgBUAFYAXgBcAFQAUgBYAFoAUgBQAFgAWQBVAF0AWQBRAFUAYwBvAGcAYwBrAG8AbgBkAGYAbgBsAGQAYgBoAGoAYgBgAGgAaQBlAG0AaQBhAGUAcwB/AHcAcwB7AH8AfgB0AHYAfgB8AHQAcgB4AHoAcgBwAHgAeQB1AH0AeQBxAHUAgwCPAIcAgwCLAI8AjgCEAIYAjgCMAIQAggCIAIoAggCAAIgAiQCFAI0AiQCBAIUAkwCfAJcAkwCbAJ8AngCUAJYAngCcAJQAkgCYAJoAkgCQAJgAmQCVAJ0AmQCRAJUAowCvAKcAowCrAK8ArgCkAKYArgCsAKQAogCoAKoAogCgAKgAqQClAK0AqQChAKUAswC/ALcAswC7AL8AvgC0ALYAvgC8ALQAsgC4ALoAsgCwALgAuQC1AL0AuQCxALUAwwDPAMcAwwDLAM8AzgDEAMYAzgDMAMQAwgDIAMoAwgDAAMgAyQDFAM0AyQDBAMUA0wDfANcA0wDbAN8A3gDUANYA3gDcANQA0gDYANoA0gDQANgA2QDVAN0A2QDRANUA4wDvAOcA4wDrAO8A7gDkAOYA7gDsAOQA4gDoAOoA4gDgAOgA6QDlAO0A6QDhAOUA8wD/APcA8wD7AP8A/gD0APYA/gD8APQA8gD4APoA8gDwAPgA+QD1AP0A+QDxAPUAAwEPAQcBAwELAQ8BDgEEAQYBDgEMAQQBAgEIAQoBAgEAAQgBCQEFAQ0BCQEBAQUBEwEfARcBEwEbAR8BHgEUARYBHgEcARQBEgEYARoBEgEQARgBGQEVAR0BGQERARUBKAElASIBKAErASUBIAEvASwBIAEjAS8BLgE3ATQBLgExATcBKgEwASQBKgE2ATABMgEpASYBMgE1ASkBMwEhAS0BMwEnASEBPAE/AUIBPAE5AT8BVwFUAVEBVwFaAVQBTgFFAUgBTgFLAUUBQQFKAU0BQQE+AUoBRwE4ATsBRwFEATgBOgFMAUABOgFGAUwBWwFhAVUBWwFnAWEBYgFZAVYBYgFlAVkBUAFfAVwBUAFTAV8BXQFmAWMBXQFgAWYBZAFSAV4BZAFYAVIBSQFDAU8BSQE9AUMBbAF+AXIBbAF4AX4BawF0AXcBawFoAXQBdQFvAXsBdQFpAW8BcwFqAW0BcwFwAWoBfQFuAXEBfQF6AW4BeQF8AX8BeQF2AXwB"),
+"material": SubResource("StandardMaterial3D_o0353"),
+"name": "Wood",
+"primitive": 3,
+"uv_scale": Vector4(0, 0, 0, 0),
+"vertex_count": 384,
+"vertex_data": PackedByteArray("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8bxeQHDISz66kR0+8bxeQHDISz66kR0+8bxeQHDISz66kR0+8bxeQJg1lj40G9298bxeQJg1lj40G9298bxeQJg1lj40G9298bxeQHDISz4+G9298bxeQHDISz4+G9298bxeQHDISz4+G929/3//f////z//v/+/////P/9//3////8//z//P////z//////////P/+//7////8//////////z//P/8/////P/9//3////8//7//v////z//f/9/////P/8//z////8//////////z//v/+/////P/////////8//z//P////z//f/9/////P/+//7////8//3//f////z//P/8/////P/////////8//7//v////z//////////P/8//z////8//3//f////z//v/+/////P/9//3////8//z//P////z//////////P/+//7////8//////////z//P/8/////P/9//3////8//7//v////z//f/9/////P/8//z////8//////////z//v/+/////P/////////8//z//P////z//f/9/////P/+//7////8//3//f////z//P/8/////P/////////8//7//v////z//////////P/8//z////8//3//f////z//v/+/////P/9//3////8//z//P////z//////////P/+//7////8//////////z//P/8/////P/9//3////8//7//v////z//f/9/////P/8//z////8//////////z//v/+/////P/////////8//z//P////z//f/9/////P/+//7////8//3//f////z//P/8/////P/////////8//7//v////z//////////P/8//z////8//3//f////z//v/+/////P/9//3////8//z//P////z//////////P/+//7////8//////////z//P/8/////P/9//3////8//7//v////z//f/9/////P/8//z////8//////////z//v/+/////P/////////8//z//P////z//f/9/////P/+//7////8//3//f////z//P/8/////P/////////8//7//v////z//////////P/8//z////8//3//f////z//v/+/////P/9//3////8//z//P////z//////////P/+//7////8//////////z//P/8/////P/9//3////8//7//v////z//f/9/////P/8//z////8//////////z//v/+/////P/////////8//z//P////z//f/9/////P/+//7////8//3//f////z//P/8/////P/////////8//7//v////z//////////P/8//z////8//3//f////z//v/+/////P/9//3////8//z//P////z//////////P/+//7////8//////////z//P/8/////P/9//3////8//7//v////z//f/9/////P/8//z////8//////////z//v/+/////P/////////8//z//P////z//f/9/////P/+//7////8//3//f////z//P/8/////P/////////8//7//v////z//////////P/8//z////8//3//f////z//P/+/////P/9//3////8//7//P////z//////////P/8//7////8//////////z//v/8/////P/9//3////8//z//v////z//f/9/////P/+//z////8//////////z//P/+/////P/////////8//7//P////z//f/9/////P/8//7////8//3//f////z//v/8/////P/////////8//z//v////z//////////P/+//z////8//3//f////z//P/+/////P/9//3////8//7//P////z//////////P/8//7////8//////////z//v/8/////P/9//3////8//z//v////z//f/9/////P/+//z////8//////////z//P/+/////P/////////8//7//P////z//f/9/////P/8//7////8//3//f////z//v/8/////P/////////8//z//v////z//////////P/+//z////8//3//f////z//P/+/////P/9//3////8//7//P////z//////////P/8//7////8//////////z//v/8/////P/9//3////8//z//v////z//f/9/////P/+//z////8//////////z//P/+/////P/////////8//7//P////z//f/9/////P/8//7////8//3//f////z//v/8/////P/////////8//z//v////z//////////P/+//z////8//3//f////z//P/+/////P/9//3////8//7//P////z//////////P/8//7////8//////////z//v/8/////P/9//3////8//z//v////z//f/9/////P/+//z////8//////////z//P/+/////P/////////8//7//P////z//f/9/////P/8//7////8//3//f////z//v/8/////P/////////8//z//v////z//////////P/+//z////8//3//f////z//P/+/////P/9//3////8//7//P////z//////////P/8//7////8//////////z//v/8/////P/9//3////8//z//v////z//f/9/////P/+//z////8//////////z//P/+/////P/////////8//7//P////z//f/9/////P/8//7////8//3//f////z//v/8/////P/////////8//z//v////z//////////P/+//z////8//3//f////z//P/+/////P/9//3////8//7//P////z//////////P/8//7////8//////////z//v/8/////P/9//3////8//z//v////z//f/9/////P/+//z////8//////////z//P/+/////P/////////8//7//P////z//f/9/////P/8//7////8//3//f////z//v/8/////P/////////8//z//v////z//////////P/+//z////8//////////z//fwAA////P////3////+//////////z//f///////P////3////+//3//f////z//fwAA////P////3////+//3//f////z//f///////P////3////+//////////z//fwAA////PwAA/3////+//////////z//f///////PwAA/3////+//3//f////z//fwAA////PwAA/3////+//3//f////z//f///////PwAA/3////+//3//f////z//f///////PwAA/3////+//3//f////z//f///////P////3////+//////////z//f///////PwAA/3////+//////////z//f///////P////3////+//3//f////z//fwAA////PwAA/3////+//3//f////z//fwAA////P////3////+//////////z//fwAA////PwAA/3////+//////////z//fwAA////P////3////+//////////z//f///////P////3////+//////////z//f///////PwAA/3////+//3//f////z//f///////P////3////+//3//f////z//f///////PwAA/3////+//////////z//fwAA////P////3////+//////////z//fwAA////PwAA/3////+//3//f////z//fwAA////P////3////+//3//f////z//fwAA////PwAA/3////+//3//f////z//f///////PwAA/3////+//3//f////z//fwAA////PwAA/3////+//////////z//f///////PwAA/3////+//////////z//fwAA////PwAA/3////+//3//f////z//f///////P////3////+//3//f////z//fwAA////P////3////+//////////z//f///////P////3////+//////////z//fwAA////P////3////+/")
+}]
+blend_shape_mode = 0
+shadow_mesh = SubResource("ArrayMesh_dxqmh")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r587q"]
+size = Vector3(187.577, 4.18506, 0.251831)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wrisp"]
+size = Vector3(0.660828, 3.96912, 122.666)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8glbk"]
+size = Vector3(124.495, 3.84961, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wfjeo"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_roa2f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_lyp8d"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_c1i06"]
+material = SubResource("StandardMaterial3D_lyp8d")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_icj4n"]
 
 [node name="World" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(-0.866023, -0.433016, 0.250001, 0, 0.499998, 0.866027, -0.500003, 0.749999, -0.43301, 0, 0, 0)
-visible = false
-light_color = Color(0, 0, 0, 1)
+transform = Transform3D(-0.866024, -0.433016, 0.250001, 0, 0.499998, 0.866026, -0.500003, 0.749999, -0.43301, 0, 0, 0)
+light_color = Color(0.568973, 0.568973, 0.568973, 1)
 shadow_enabled = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -51,6 +100,7 @@ environment = SubResource("Environment_lsqx6")
 [node name="Player" type="CharacterBody3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15352, 0)
 collision_layer = 3
+floor_max_angle = 1.0472
 script = ExtResource("1_vrkk0")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
@@ -73,35 +123,621 @@ transform = Transform3D(0.456906, 0.278284, 0.00445647, 0.164224, -0.262648, -0.
 transform = Transform3D(1.59632, 0.0297431, -0.971925, 0.972255, -0.018907, 1.59628, 0.0155698, -1.86883, -0.0316182, 0.336462, 1.31576, -0.367385)
 
 [node name="OmniLight3D" type="OmniLight3D" parent="Player/Head"]
-visible = false
-omni_range = 8.0
+omni_range = 39.0
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.20857)
 navigation_mesh = SubResource("NavigationMesh_h5rfn")
 
-[node name="CSGBox3D8" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.147485, 1.2386, -4.93164)
-use_collision = true
-size = Vector3(3, 3, 3)
-material = SubResource("ShaderMaterial_jwkoj")
-
-[node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60115, 1.191, 5.53171)
-material_override = SubResource("StandardMaterial3D_er7k3")
-use_collision = true
-size = Vector3(3, 3, 3)
-
-[node name="CSGBox3D7" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.08833, 0.684947, -4.1265)
-material_override = SubResource("StandardMaterial3D_s7ccp")
-use_collision = true
-size = Vector3(2, 2, 2)
-
 [node name="CSGBox3D" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.260889, 1.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00956345, -0.0497155, 1.20686)
 material_override = SubResource("StandardMaterial3D_f45sk")
 use_collision = true
-size = Vector3(18, 0.001, 18)
+size = Vector3(160, 0.002, 120)
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 79.5304, -0.127, -57.657)
+
+[node name="Fence Type6 Big Model6" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3"]
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model4" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9024, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model5" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.8042, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0578, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model2/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model2/Fence Type6 Big Model2/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35017, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model4" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9024, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 23.5035, 0, 3.8147e-06)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.448, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4464, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D3/Fence Type6 Big Model6/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 93.2885, 1.59253, -0.0804787)
+shape = SubResource("BoxShape3D_r587q")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 79.5304, -0.127, -57.657)
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.0304184, -0.001, -117.657)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model4" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9024, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model5" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.8042, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0578, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model2/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model2/Fence Type6 Big Model2/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35017, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model4" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9024, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D/Fence Type6 Big Model/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.281624, 1.38507, -60.6451)
+shape = SubResource("BoxShape3D_wrisp")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -78.491, -0.132, 59.98)
+
+[node name="Fence Type6 Big Model7" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2"]
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model4" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9024, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model5" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 53.8042, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 47.0578, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model2/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model2/Fence Type6 Big Model2/Fence Type6 Big Model"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35017, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model4" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 26.9024, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model3" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13.4531, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model2" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6.74157, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="Fence Type6 Big Model" type="MeshInstance3D" parent="NavigationRegion3D/StaticBody3D2/Fence Type6 Big Model7/Fence Type6 Big Model5/Fence Type6 Big Model4/Fence Type6 Big Model3/Fence Type6 Big Model2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.35843, 0, 0)
+mesh = SubResource("ArrayMesh_pyruk")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/StaticBody3D2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 61.7473, 1.4248, 0)
+shape = SubResource("BoxShape3D_8glbk")
 
 [node name="UI" type="Control" parent="."]
 layout_mode = 3
@@ -121,6 +757,7 @@ color = Color(0.764706, 0, 0, 0.211765)
 [node name="orb" parent="." instance=ExtResource("3_xlpgb")]
 transform = Transform3D(0.765, 0, 0, 0, 0.765, 0, 0, 0, 0.765, 0, 3.31304, -3.02232)
 collision_layer = 0
+angular_damp = 1.0
 
 [node name="Area3D" type="Area3D" parent="orb"]
 collision_mask = 2
@@ -136,7 +773,21 @@ script = ExtResource("3_mdq11")
 [node name="Bubbles" type="Node3D" parent="Bubbles"]
 
 [node name="SpawnTimer" type="Timer" parent="Bubbles"]
+wait_time = 5.0
 autostart = true
+
+[node name="AnimatableBody3D" type="AnimatableBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7352, 0.259774, 2.89399)
+physics_material_override = SubResource("PhysicsMaterial_roa2f")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="AnimatableBody3D"]
+transform = Transform3D(4.3418, 0, 0, 0, 2.37177, 0, 0, 0, 2.10136, 0, 0, 0)
+visible = false
+mesh = SubResource("SphereMesh_c1i06")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="AnimatableBody3D"]
+visible = false
+shape = SubResource("SphereShape3D_icj4n")
 
 [connection signal="player_hit" from="Player" to="." method="_on_player_player_hit"]
 [connection signal="body_entered" from="orb/Area3D" to="Player" method="_on_area_3d_body_entered"]
