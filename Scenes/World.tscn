@@ -1,11 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://gskyetjwxluq"]
+[gd_scene load_steps=15 format=3 uid="uid://gskyetjwxluq"]
 
 [ext_resource type="Script" path="res://Scripts/character_body_3d.gd" id="1_vrkk0"]
 [ext_resource type="PackedScene" uid="uid://c1c2fbnbosnei" path="res://3dObjects/hand3d.blend" id="2_r3p26"]
-[ext_resource type="PackedScene" uid="uid://d2rua2kabokjl" path="res://Scenes/orb.tscn" id="3_xlpgb"]
+[ext_resource type="Script" path="res://Scripts/bubble_spawner.gd" id="3_mdq11"]
+[ext_resource type="PackedScene" path="res://Scenes/orb.tscn" id="3_xlpgb"]
+
+[sub_resource type="Sky" id="Sky_21u14"]
 
 [sub_resource type="Environment" id="Environment_lsqx6"]
 background_mode = 2
+sky = SubResource("Sky_21u14")
 tonemap_mode = 2
 glow_enabled = true
 
@@ -22,17 +26,14 @@ agent_max_slope = 60.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jwkoj"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f45sk"]
-albedo_color = Color(0.187176, 0.187176, 0.187176, 1)
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_me7m6"]
-albedo_color = Color(0.0859693, 0.0977035, 0.113329, 1)
-
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_er7k3"]
 albedo_color = Color(0.270222, 0.270222, 0.270222, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_s7ccp"]
 albedo_color = Color(0.28485, 0.28485, 0.28485, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f45sk"]
+albedo_color = Color(0.187176, 0.187176, 0.187176, 1)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_wfjeo"]
 
@@ -84,30 +85,6 @@ use_collision = true
 size = Vector3(3, 3, 3)
 material = SubResource("ShaderMaterial_jwkoj")
 
-[node name="CSGBox3D2" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0219116, 1.52498, -7.38647)
-material_override = SubResource("StandardMaterial3D_f45sk")
-use_collision = true
-size = Vector3(18.0511, 3.57214, 0.24762)
-
-[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0438232, 1.51864, 10.6025)
-material_override = SubResource("StandardMaterial3D_f45sk")
-use_collision = true
-size = Vector3(18.0511, 3.60693, 0.24762)
-
-[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 9.00233, 1.50742, 1.6072)
-material_override = SubResource("StandardMaterial3D_f45sk")
-use_collision = true
-size = Vector3(18.0511, 3.63196, 0.24762)
-
-[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -8.87374, 1.5347, 1.56408)
-material_override = SubResource("StandardMaterial3D_me7m6")
-use_collision = true
-size = Vector3(18.0511, 3.57898, 0.24762)
-
 [node name="CSGBox3D6" type="CSGBox3D" parent="NavigationRegion3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.60115, 1.191, 5.53171)
 material_override = SubResource("StandardMaterial3D_er7k3")
@@ -151,5 +128,16 @@ collision_mask = 2
 [node name="CollisionShape3D" type="CollisionShape3D" parent="orb/Area3D"]
 shape = SubResource("BoxShape3D_wfjeo")
 
+[node name="Bubbles" type="Node3D" parent="."]
+script = ExtResource("3_mdq11")
+
+[node name="SpawnPoints" type="Node3D" parent="Bubbles"]
+
+[node name="Bubbles" type="Node3D" parent="Bubbles"]
+
+[node name="SpawnTimer" type="Timer" parent="Bubbles"]
+autostart = true
+
 [connection signal="player_hit" from="Player" to="." method="_on_player_player_hit"]
 [connection signal="body_entered" from="orb/Area3D" to="Player" method="_on_area_3d_body_entered"]
+[connection signal="timeout" from="Bubbles/SpawnTimer" to="Bubbles" method="_on_spawn_timer_timeout"]
