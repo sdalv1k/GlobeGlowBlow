@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxwx46a3cedio"]
+
+[ext_resource type="PackedScene" uid="uid://ca5r671btwkdw" path="res://Models/retro_nature_pack/models/FBX/trees/tree08.fbx" id="1_vxvxn"]
+[ext_resource type="Texture2D" uid="uid://dco7fitrk33pr" path="res://Models/retro_nature_pack/textures/trees/tree08_summer.png" id="2_30my6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ca825"]
+albedo_texture = ExtResource("2_30my6")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7j2ll"]
+transparency = 2
+alpha_scissor_threshold = 0.5
+alpha_antialiasing_mode = 0
+albedo_texture = ExtResource("2_30my6")
+
+[node name="tree08" instance=ExtResource("1_vxvxn")]
+
+[node name="tree08" parent="." index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_ca825")
+
+[node name="tree08_top" parent="tree08" index="0"]
+surface_material_override/0 = SubResource("StandardMaterial3D_7j2ll")
