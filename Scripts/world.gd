@@ -53,6 +53,7 @@ func unpause():
 	pass
 	
 func game_over():
+	$GameOver.play_game_over_sound()
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$GameOver.show()

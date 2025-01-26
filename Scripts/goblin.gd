@@ -139,6 +139,7 @@ func _process(delta):
 					look_at(Vector3(global_position.x + velocity.x, global_position.y, 
 									global_position.z + velocity.z), Vector3.UP)
 			"attack":
+				$attack_sound/charge.play()
 				if follow_node: 
 					look_at(Vector3(follow_node.global_position.x, global_position.y, follow_node.global_position.z), Vector3.UP)
 			"blow":

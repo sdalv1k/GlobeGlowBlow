@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://4l5xdb2636vx"]
+[gd_scene load_steps=8 format=3 uid="uid://4l5xdb2636vx"]
 
 [ext_resource type="Script" path="res://Scripts/game_over.gd" id="1_oxg6a"]
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="1_vp0sl"]
+[ext_resource type="AudioStream" uid="uid://bhlt2kgtwrdx5" path="res://Audio/Goblin/Attack/GoblinHit.wav" id="3_bh188"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bvrpw"]
 bg_color = Color(1, 1, 1, 0)
@@ -41,6 +42,7 @@ grow_vertical = 2
 
 [node name="looseText" type="Label" parent="Control/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_color = Color(0.632225, 1.9493e-06, 3.36915e-07, 1)
 theme_override_fonts/font = ExtResource("1_vp0sl")
 theme_override_font_sizes/font_size = 146
 text = "GAME OVER"
@@ -51,8 +53,8 @@ size_flags_horizontal = 4
 
 [node name="Restart" type="Button" parent="Control/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.631373, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.631373, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_vp0sl")
 theme_override_font_sizes/font_size = 76
 theme_override_styles/hover = SubResource("StyleBoxFlat_bvrpw")
@@ -61,13 +63,18 @@ text = "Restart"
 
 [node name="Quit" type="Button" parent="Control/VBoxContainer/VBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
-theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_pressed_color = Color(0.631373, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.631373, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_vp0sl")
 theme_override_font_sizes/font_size = 61
 theme_override_styles/hover = SubResource("StyleBoxFlat_yq8ew")
 theme_override_styles/normal = SubResource("StyleBoxFlat_w8t7h")
 text = "Quit"
+
+[node name="game_over_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_bh188")
+volume_db = 5.805
+pitch_scale = 0.89
 
 [connection signal="button_down" from="Control/VBoxContainer/VBoxContainer/Restart" to="." method="_on_restart_button_down"]
 [connection signal="button_down" from="Control/VBoxContainer/VBoxContainer/Quit" to="." method="_on_quit_button_down"]

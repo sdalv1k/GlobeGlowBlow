@@ -163,6 +163,8 @@ func _headshake(t: float) -> Vector3:
 	
 func hit(dir):
 	emit_signal("player_hit")
+	var parent_node = get_parent()
+	parent_node.game_over()
 	velocity += dir * HIT_STAGGER
 
 func pickup_orb():

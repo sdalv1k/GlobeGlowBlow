@@ -20,3 +20,7 @@ func _on_restart_button_down() -> void:
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/World.tscn")
 	pass # Replace with function body.
+	
+func play_game_over_sound():
+	$game_over_sound.play()
+	
