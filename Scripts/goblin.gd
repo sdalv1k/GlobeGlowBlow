@@ -36,6 +36,7 @@ var initialFollowPoint
 var spawning = true
 
 var active_bubbles = {}
+var time = 0
 
 func disable_character_body():
 	body.collision_layer = 0
@@ -55,11 +56,7 @@ func _ready():
 	state_machine = anim_tree.get("parameters/playback")
 	
 func _new_follow_node():
-	if follow_player:
-		follow_node = get_node(player)
-	else:
-		follow_node = bubbles._on_spawn_timer_timeout()
-	
+	follow_node = bubbles._on_spawn_timer_timeout()
 	if follow_node:
 		var target_point = follow_node.global_position
 		direction_to_target = (target_point - global_transform.origin).normalized()
@@ -99,6 +96,7 @@ func _follow_orb(delta):
 
 	
 func _process(delta):
+	time += delta
 	
 	velocity = Vector3.ZERO
 	if orb:
@@ -125,6 +123,8 @@ func _process(delta):
 					var next_nav_point = nav_agent.get_next_path_position()
 					velocity = (next_nav_point - global_transform.origin).normalized() * SPEED
 					
+					velocity.y = sin(time) * SPEED * 100 * delta
+					
 					look_at(Vector3(global_position.x + velocity.x, global_position.y, 
 									global_position.z + velocity.z), Vector3.UP)
 									
@@ -132,6 +132,12 @@ func _process(delta):
 					if distance_to_target < 1.5:
 						follow_node = null
 						anim_tree.set("parameters/conditions/blow", true)
+				else:
+					velocity = (player.global_position - global_transform.origin).normalized() * SPEED
+					velocity.y = sin(time) * SPEED * 100 * delta
+					
+					look_at(Vector3(global_position.x + velocity.x, global_position.y, 
+									global_position.z + velocity.z), Vector3.UP)
 			"attack":
 				if follow_node: 
 					look_at(Vector3(follow_node.global_position.x, global_position.y, follow_node.global_position.z), Vector3.UP)
