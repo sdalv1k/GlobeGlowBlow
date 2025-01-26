@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://cjm0s2xn825qs"
+path="res://.godot/imported/4. Menu - Back Master.wav-f8e0eae06cd0bc8b7471a48e13cf6545.sample"
+
+[deps]
+
+source_file="res://Audio/Menu/4. Menu - Back Master.wav"
+dest_files=["res://.godot/imported/4. Menu - Back Master.wav-f8e0eae06cd0bc8b7471a48e13cf6545.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

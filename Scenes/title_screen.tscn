@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://d03d6lq3ts0it"]
+[gd_scene load_steps=6 format=3 uid="uid://d03d6lq3ts0it"]
 
 [ext_resource type="Script" path="res://title_screen.gd" id="1_kqu3d"]
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="2_shqpf"]
+[ext_resource type="AudioStream" uid="uid://cawnxbabwe7dw" path="res://Audio/Menu/3. Menu - Confirm Master.wav" id="3_kosud"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ra2"]
 bg_color = Color(1, 1, 1, 0)
@@ -54,6 +55,9 @@ theme_override_font_sizes/font_size = 96
 theme_override_styles/hover = SubResource("StyleBoxFlat_j0ra2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0wjyf")
 text = "Start Game"
+
+[node name="button_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_kosud")
 
 [connection signal="button_down" from="Control/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="mouse_entered" from="Control/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]

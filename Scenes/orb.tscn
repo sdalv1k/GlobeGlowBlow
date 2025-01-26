@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bsj5nw4frtlix"]
+[gd_scene load_steps=6 format=3 uid="uid://bsj5nw4frtlix"]
 
 [ext_resource type="Script" path="res://Scripts/orb.gd" id="1_6yy2d"]
+[ext_resource type="AudioStream" uid="uid://b1pcp8k2o4puv" path="res://Audio/Trow/Retract.wav" id="2_kdosk"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_gfegg"]
 radius = 0.25
@@ -28,5 +29,10 @@ shadow_enabled = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_f45i4")
 mesh = SubResource("SphereMesh_dg2co")
+
+[node name="audio" type="Node3D" parent="."]
+
+[node name="retract" type="AudioStreamPlayer3D" parent="audio"]
+stream = ExtResource("2_kdosk")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

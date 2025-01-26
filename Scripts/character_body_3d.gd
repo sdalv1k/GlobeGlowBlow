@@ -11,6 +11,18 @@ const HEAD_FREQ = 2.0
 const HEAD_AMP = 0.06
 var head_t = 0.0
 
+# Audio:
+@onready var Stupidblowgoblinsblowingmylawn = $"VoiceLines/Stupid blow goblins blowing my lawn"
+@onready var get_off_my_lawn = $"VoiceLines/get off my lawn"
+@onready var Ihateyouf___ingglowgoblins = $"VoiceLines/I hate you, f___ing glow goblins"
+@onready var Ikillyouglowgoblins = $"VoiceLines/I kill you, glow goblins"
+@onready var Goawayglowgoblins = $"VoiceLines/Go away, glow goblins"
+@onready var Theseglowgoblinsareruiningmylifeandmylawn = $"VoiceLines/These glow goblins are ruining my life and my lawn"
+@onready var I_will_pull_the_Sun_Globe = $"VoiceLines/I will pull the Sun Globe"
+
+var time_to_next_voiceline =6
+
+
 @onready var head: Node3D = $Head
 @onready var camera: Camera3D = $Head/Camera3D
 @onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
@@ -40,8 +52,24 @@ func disable_walking():
 func enable_walking():
 	walking_enabled = true
 
+var last_voiceline_idx = 1
+func play_random_voiceline():
+	var all_voicelines = [Stupidblowgoblinsblowingmylawn, get_off_my_lawn,
+Ihateyouf___ingglowgoblins, Ikillyouglowgoblins, Goawayglowgoblins, Theseglowgoblinsareruiningmylifeandmylawn, I_will_pull_the_Sun_Globe]
+
+
+	# Get a random index from the array
+	var random_index = randi() % all_voicelines.size()
+	if random_index == last_voiceline_idx:
+		random_index = (random_index + 1)%all_voicelines.size()
+	last_voiceline_idx = random_index
+
+	# Play the voiceline at the random index
+	all_voicelines[random_index].play()
+
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	play_random_voiceline()
 	
 
 func _input(event: InputEvent) -> void:
@@ -51,6 +79,9 @@ func _input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(60))
 
 func _physics_process(delta: float) -> void:
+	if time_to_next_voiceline > 0:
+		time_to_next_voiceline -= delta
+	
 	if !walking_enabled:
 		return
 	#SimpleGrass.set_player_position(global_position)
@@ -117,8 +148,11 @@ func _throw_finished():
 	if !picked_up: return
 	#var trow_dir = $Head/Camera3D.global_transform.basis
 	var trow_dir = -pivot.global_transform.basis.z * trow_force
+	if time_to_next_voiceline < 0:
+		time_to_next_voiceline = 10
+		play_random_voiceline()
+	$trow_sound/trow.play()
 	picked_up.let_go(trow_dir)
-	#picked_up.let_go(-pivot.global_transform.basis.z * trow_force)
 	picked_up = null
 
 func _headshake(t: float) -> Vector3:

@@ -2,6 +2,9 @@ extends Node3D
 
 @onready var hit_rect = $UI/ColorRect
 
+@onready var atmosphere_sound = $sound_ambient/Atmosphere
+
+
 func _on_player_player_hit() -> void:
 	hit_rect.visible = true
 	await get_tree().create_timer(0.2).timeout
@@ -14,6 +17,7 @@ var cutscene_state = false
 
 
 func _ready() -> void:
+	atmosphere_sound.play()
 	GameManager.reset_all_stats()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#$"placeholder goblin/Head/Camera3D".current = true
@@ -23,6 +27,7 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("esc"):
+		$menu_sound.menu1()
 		if paused:
 			unpause()
 		else:

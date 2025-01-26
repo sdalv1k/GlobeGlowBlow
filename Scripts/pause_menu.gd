@@ -11,9 +11,8 @@ func _process(delta: float) -> void:
 	pass
 
 
-
-
 func unpause():
+	$menu_sound_select.play()
 	$".".hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
@@ -29,6 +28,7 @@ func _on_button_button_down() -> void:
 
 
 func _on_restart_button_down() -> void:
+	$menu_sound_select.play()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/World.tscn")

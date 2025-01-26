@@ -12,6 +12,11 @@ var follow_player = false
 var direction_to_target
 
 # @export var player_path : NodePath
+# Goblin Sounds
+#Chatter
+
+
+@export var player_path : NodePath
 
 @onready var player = $"../../../Player"
 @onready var anim_tree = $AnimationTree
@@ -36,6 +41,8 @@ func disable_character_body():
 	body.collision_layer = 0
 	body.collision_mask = 0
 	body.velocity = Vector3.ZERO
+	
+var time_to_next_chatter = 5
 
 func _ready():
 	initialFollowPoint = global_position
@@ -92,10 +99,20 @@ func _follow_orb(delta):
 
 	
 func _process(delta):
+	
 	velocity = Vector3.ZERO
 	if orb:
 		_follow_orb(delta)
 		return
+		
+	time_to_next_chatter -= delta
+	if time_to_next_chatter < 0:
+		time_to_next_chatter = randi() % (10 - 5 + 1)
+		var state = state_machine.get_current_node()
+		if state == "blow":
+			$blow_audio.play_random_child()
+		else:
+			$Audio_chatter.play_random_child()
 	
 	if not spawning:
 		match state_machine.get_current_node():
@@ -142,6 +159,7 @@ func _hit_finished():
 func goblin_hit_with_orb(orb_connect : RigidBody3D):
 	print("Hello")
 	if !orb: # to prevent several hit detections on a single goblin
+		$death_sound.play_random_child()
 		print("GOBLIN HITTTTT!!")
 		GameManager.increment_goblin_score()
 		print("Score is now:", GameManager.goblin_score)
