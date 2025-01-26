@@ -41,7 +41,7 @@ func _create_spawn_points() -> void:
 			var spawn_point = Node3D.new()
 			spawn_point.position = Vector3(
 				top_left_pos.x + col * x_step,
-				top_left_pos.y - radius,  # Assume the spawn plane is flat
+				top_left_pos.y - radius - 0.6,  # Assume the spawn plane is flat
 				top_left_pos.z + row * z_step + radius
 			)
 			spawns.add_child(spawn_point)
@@ -60,7 +60,7 @@ func _get_random_free_spawn_point():
 	# Return a random free spawn point
 	return free_spawns[randi() % free_spawns.size()]
 
-func _on_spawn_timer_timeout() -> void:
+func _on_spawn_timer_timeout():
 	var spawn_point = _get_random_free_spawn_point()
 	if spawn_point:
 		# Mark the spawn point as occupied
@@ -72,6 +72,8 @@ func _on_spawn_timer_timeout() -> void:
 		bubbles.add_child(instance)
 
 		instance.connect("tree_exited", _on_bubble_removed)
+		
+		return instance.get_node("FollowPoint")
 
 func _on_bubble_removed(spawn_point):
 	# Mark the spawn point as free

@@ -5,6 +5,7 @@ const WALK_SPEED = 5.0
 const RUN_SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.005
+const HIT_STAGGER = 8.0
 
 const HEAD_FREQ = 2.0
 const HEAD_AMP = 0.06
@@ -117,9 +118,9 @@ func _headshake(t: float) -> Vector3:
 	pos.x = cos(t * HEAD_FREQ * 0.5) * HEAD_AMP
 	return pos
 	
-func hit():
+func hit(dir):
 	emit_signal("player_hit")
-
+	velocity += dir * HIT_STAGGER
 
 func pickup_orb():
 	print("ENTERED")
@@ -128,8 +129,6 @@ func pickup_orb():
 	elif collider.has_method("pick_up"):
 		collider.pick_up(pivot)
 		picked_up = collider
-	
-
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	pickup_orb()
