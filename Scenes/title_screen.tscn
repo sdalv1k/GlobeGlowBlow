@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://d03d6lq3ts0it"]
+[gd_scene load_steps=5 format=3 uid="uid://d03d6lq3ts0it"]
 
 [ext_resource type="Script" path="res://title_screen.gd" id="1_kqu3d"]
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="2_shqpf"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ra2"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0wjyf"]
+bg_color = Color(1, 1, 1, 0)
 
 [node name="title_screen" type="CanvasLayer"]
 script = ExtResource("1_kqu3d")
@@ -22,7 +28,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.176419, 0.176419, 0.176419, 1)
+color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
@@ -45,6 +51,8 @@ theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_shqpf")
 theme_override_font_sizes/font_size = 96
+theme_override_styles/hover = SubResource("StyleBoxFlat_j0ra2")
+theme_override_styles/normal = SubResource("StyleBoxFlat_0wjyf")
 text = "Start Game"
 
 [connection signal="button_down" from="Control/VBoxContainer/Button" to="." method="_on_button_button_down"]

@@ -1,7 +1,25 @@
-[gd_scene load_steps=3 format=3 uid="uid://di5m2104ntiy1"]
+[gd_scene load_steps=9 format=3 uid="uid://di5m2104ntiy1"]
 
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="1_0wwxd"]
 [ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_q8adr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vekch"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_frwx7"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v2l6i"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rsehq"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2e353"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5pjjc"]
+bg_color = Color(1, 1, 1, 0)
 
 [node name="pauseMenu" type="CanvasLayer"]
 process_mode = 2
@@ -33,6 +51,8 @@ theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_0wwxd")
 theme_override_font_sizes/font_size = 71
+theme_override_styles/hover = SubResource("StyleBoxFlat_vekch")
+theme_override_styles/normal = SubResource("StyleBoxFlat_frwx7")
 text = "Resume Game"
 
 [node name="Restart" type="Button" parent="Control/VBoxContainer"]
@@ -41,6 +61,8 @@ theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_0wwxd")
 theme_override_font_sizes/font_size = 76
+theme_override_styles/hover = SubResource("StyleBoxFlat_v2l6i")
+theme_override_styles/normal = SubResource("StyleBoxFlat_rsehq")
 text = "Restart"
 
 [node name="Quit" type="Button" parent="Control/VBoxContainer"]
@@ -49,6 +71,8 @@ theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
 theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_0wwxd")
 theme_override_font_sizes/font_size = 61
+theme_override_styles/hover = SubResource("StyleBoxFlat_2e353")
+theme_override_styles/normal = SubResource("StyleBoxFlat_5pjjc")
 text = "Quit"
 
 [connection signal="button_down" from="Control/VBoxContainer/Resume" to="." method="_on_resume_button_down"]

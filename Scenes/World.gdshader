@@ -19,8 +19,7 @@ uniform vec2 u_screen_size = vec2(1280.0, 720.0);
 // 0) NEW: Grayscale Option
 // ----------------------------------------------------
 uniform bool enable_grayscale = false;
-//	    float color_blend_factor = 0.2; // Adjust this value (0.0 to 1.0) to control the mix
-uniform float color_blend_factor : hint_range(0.0, 1.0) = 0.5;
+uniform float color_blend_factor : hint_range(0.0, 1.0) = 0.2;// Adjust this value (0.0 to 1.0) to control the mix
 
 // ----------------------------------------------------
 // 1) Pixelation
@@ -97,7 +96,7 @@ float rand(vec2 co) {
 // ----------------------------------------------------
 // The fragment() function applies all effects
 // ----------------------------------------------------
-void fragment()
+void fragment() 
 {
     // Base UV for sampling the screen
     vec2 uv = SCREEN_UV;
@@ -123,18 +122,18 @@ void fragment()
     // ---------------------------------------------
     // 3) Chromatic Aberration / Color Bleeding
     // ---------------------------------------------
-    vec2 offset = enable_chromatic_aberration
-        ? vec2(aberration_strength, 0.0)
+    vec2 offset = enable_chromatic_aberration 
+        ? vec2(aberration_strength, 0.0) 
         : vec2(0.0);
 
     // For alpha preservation, sample the base screen color once:
     vec4 base_screen_col = texture(SCREEN_TEXTURE, uv);
-
+    
     // Now sample R/G/B with slight offset
     float rChan = texture(SCREEN_TEXTURE, uv + offset).r;
     float gChan = base_screen_col.g;
     float bChan = texture(SCREEN_TEXTURE, uv - offset).b;
-
+    
     // Start our color with the combined channels and original alpha
     vec4 color = vec4(rChan, gChan, bChan, base_screen_col.a);
 
@@ -227,21 +226,20 @@ void fragment()
         }
     }
 
-    // ---------------------------------------------
-    // 0) NEW: Grayscale (from your simple example)
-    // ---------------------------------------------
-    if (enable_grayscale) {
+// ---------------------------------------------
+// 0) NEW: Grayscale with color retention
+// ---------------------------------------------
+	if (enable_grayscale) {
 	    // Convert color to grayscale using the luminance formula
 	    float gray = dot(color.rgb, vec3(0.299, 0.587, 0.114));
 	    vec3 grayscale = vec3(gray);
 
 	    // Blend between original color and grayscale
-	    //float color_blend_factor = 0.2; // Adjust this value (0.0 to 1.0) to control the mix
 	    color.rgb = mix(grayscale, color.rgb, color_blend_factor);
 
 	    // Keep alpha from the original sampling (or from `color.a` above)
 	    // color.a remains unchanged
-    }
+	}
 
     // Output final color
     ALBEDO = color.rgb;
