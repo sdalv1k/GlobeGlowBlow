@@ -1,5 +1,7 @@
 extends Node3D
 
+@onready var world: Node3D = $".."
+
 @onready var topleft: Node3D = $SpawnArea/topleft
 @onready var topright: Node3D = $SpawnArea/topright
 @onready var bottomleft: Node3D = $SpawnArea/bottomleft

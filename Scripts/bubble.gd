@@ -15,6 +15,9 @@ func _physics_process(delta: float) -> void:
 	moved += tmp_moved
 	if moved >= 0.0 and moved <= move_end:
 		global_position.y += tmp_moved
+		
+	if moved >= move_end - 0.1:
+		explode()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -25,6 +28,10 @@ func start_expanding():
 	
 func start_shrinking():
 	inflation = -1
+	
+func explode():
+	global_position.y = 0.0
+	GameManager.call_game_over()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	pass

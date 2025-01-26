@@ -32,26 +32,28 @@ func _process(delta: float) -> void:
 			unpause()
 		else:
 			pause()
+		
 	if cutscene_state:
 		$Player.global_transform.origin = player_cutscenepos
 		if Input.is_action_just_pressed("pickup"):
 			intro_cutscene_over()
 			$Player.pickup_orb()
-		
+			
+	if GameManager.game_over:
+		GameManager.game_over = false
+		game_over()
 
 
 func pause():
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$pauseMenu.show()
-	pass
 	
 func unpause():
 	$pauseMenu.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
-	pass
-	
+
 func game_over():
 	$GameOver.play_game_over_sound()
 	get_tree().paused = true

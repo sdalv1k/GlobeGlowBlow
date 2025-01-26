@@ -10,7 +10,3 @@ func _process(delta: float) -> void:
 	var soul_count = GameManager.goblin_score
 	$Control/soul_number.text = str(soul_count)
 	pass
-
-
-
-	
