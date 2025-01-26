@@ -8,7 +8,7 @@ extends Node3D
 @onready var spawns: Node3D = $SpawnPoints
 @onready var bubbles: Node3D = $Bubbles
 
-var bubble = load("res://Scenes/Bubble.tscn")
+var bubble = preload("res://Scenes/Bubble.tscn")
 var active_spawns = {}
 
 const radius = 20.0
@@ -74,6 +74,8 @@ func _on_spawn_timer_timeout():
 		instance.connect("tree_exited", _on_bubble_removed)
 		
 		return instance.get_node("FollowPoint")
+	else:
+		return null
 
 func _on_bubble_removed(spawn_point):
 	# Mark the spawn point as free

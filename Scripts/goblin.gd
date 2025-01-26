@@ -11,11 +11,12 @@ var state_machine
 var follow_player = false
 var direction_to_target
 
-@export var player_path : NodePath
+# @export var player_path : NodePath
 
-@onready var player = $"../Player"
+@onready var player = $"../../../Player"
 @onready var anim_tree = $AnimationTree
-@onready var bubbles: Node3D = $"../Bubbles"
+@onready var bubbles: Node3D = $"../../../Bubbles"
+@onready var nav_agent = $NavigationAgent3D
 
 # fra placeholder:
 var original_size = scale
@@ -25,32 +26,44 @@ var speed = 12
 var size_shrink : float = 1
 @onready var body = $"."
 
+# Spawn animation
+var initialFollowPoint
+var spawning = true
+
+var active_bubbles = {}
+
 func disable_character_body():
 	body.collision_layer = 0
 	body.collision_mask = 0
 	body.velocity = Vector3.ZERO
 
 func _ready():
+	initialFollowPoint = global_position
+	initialFollowPoint.z -= 25
+	await get_tree().create_timer(3).timeout
+	
+	spawning = false
+	
 	_new_follow_node()
 	state_machine = anim_tree.get("parameters/playback")
-	await get_tree().create_timer(1).timeout
 	
 func _new_follow_node():
 	if follow_player:
-		follow_node = get_node(player_path)
+		follow_node = get_node(player)
 	else:
 		follow_node = bubbles._on_spawn_timer_timeout()
-		
-	var target_point = follow_node.global_position
-	direction_to_target = (target_point - global_transform.origin).normalized()
+	
+	if follow_node:
+		var target_point = follow_node.global_position
+		direction_to_target = (target_point - global_transform.origin).normalized()
 
 func _follow_orb(delta):
+	anim_tree.set("parameters/conditions/fall", true)
 	
 	var target_position = orb.global_transform.origin
 	var current_position = global_transform.origin
 	#top_level = true
 	disable_character_body()
-	
 	
 	# Shrink or despawn
 	if size_shrink < 0.1:
@@ -84,26 +97,32 @@ func _process(delta):
 		_follow_orb(delta)
 		return
 	
-	match state_machine.get_current_node():
-		"run":
-			if follow_node:
-				var target_point = follow_node.global_position
-				var left_vector = direction_to_target.cross(Vector3.UP).normalized()
-				var target_fixing = target_point - left_vector * 0.7 - direction_to_target * 0.2
-				var distance_to_target = global_position.distance_to(target_fixing)
-				
-				if distance_to_target < 1.5:
-					follow_node = null
-					anim_tree.set("parameters/conditions/blow", true)
-				
-				velocity = (target_fixing - global_transform.origin).normalized()  * SPEED
-				look_at(Vector3(global_position.x + velocity.x, global_position.y, 
-								global_position.z + velocity.z), Vector3.UP)
-		"attack":
-			if follow_node: 
-				look_at(Vector3(follow_node.global_position.x, global_position.y, follow_node.global_position.z), Vector3.UP)
-		"blow":
-			pass
+	if not spawning:
+		match state_machine.get_current_node():
+			"run":
+				if follow_node:
+					var target_point = follow_node.global_position
+					var left_vector = direction_to_target.cross(Vector3.UP).normalized()
+					var target_fixing = target_point - left_vector * 0.7 - direction_to_target * 0.2
+					nav_agent.set_target_position(target_fixing)
+					var next_nav_point = nav_agent.get_next_path_position()
+					velocity = (next_nav_point - global_transform.origin).normalized() * SPEED
+					
+					look_at(Vector3(global_position.x + velocity.x, global_position.y, 
+									global_position.z + velocity.z), Vector3.UP)
+									
+					var distance_to_target = global_position.distance_to(target_fixing)
+					if distance_to_target < 1.5:
+						follow_node = null
+						anim_tree.set("parameters/conditions/blow", true)
+			"attack":
+				if follow_node: 
+					look_at(Vector3(follow_node.global_position.x, global_position.y, follow_node.global_position.z), Vector3.UP)
+			"blow":
+				pass
+	else:
+		velocity = (initialFollowPoint - global_transform.origin).normalized() * SPEED
+		look_at(Vector3(global_position.x + velocity.x, global_position.y, global_position.z + velocity.z), Vector3.UP)
 
 	anim_tree.set("parameters/conditions/attack", _target_in_range())
 	anim_tree.set("parameters/conditions/run", !_target_in_range())
