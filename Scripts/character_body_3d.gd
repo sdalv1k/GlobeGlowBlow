@@ -132,16 +132,16 @@ func hit(dir):
 	velocity += dir * HIT_STAGGER
 
 func pickup_orb():
-	print("ENTERED")
+	#print("ENTERED")
 	if picked_up: return
 	if pickup_cooldown > 0: return
 	elif collider.has_method("pick_up"):
 		collider.pick_up(pivot)
 		picked_up = collider
 
-func _on_area_3d_body_entered(body: Node3D) -> void:
-	pickup_orb()
-	pass # Replace with function body.
+#func _on_area_3d_body_entered(body: Node3D) -> void:
+	#pickup_orb()
+	#pass # Replace with function body.
 	
 func set_is_camera_active(is_active: bool):
 	$Head/Camera3D.current = is_active
