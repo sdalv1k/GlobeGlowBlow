@@ -32,6 +32,13 @@ var picked_up = null
 @onready var collider = $"../orb"
 var pickup_cooldown_time = 0
 var pickup_cooldown = 0
+var walking_enabled = true
+
+func disable_walking():
+	walking_enabled = false
+	
+func enable_walking():
+	walking_enabled = true
 
 func _ready():
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
@@ -44,6 +51,8 @@ func _input(event: InputEvent) -> void:
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-80), deg_to_rad(60))
 
 func _physics_process(delta: float) -> void:
+	if !walking_enabled:
+		return
 	#SimpleGrass.set_player_position(global_position)
 	if !picked_up && pickup_cooldown >= 0:
 		pickup_cooldown -= delta
@@ -133,3 +142,7 @@ func pickup_orb():
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	pickup_orb()
 	pass # Replace with function body.
+	
+func set_is_camera_active(is_active: bool):
+	$Head/Camera3D.current = is_active
+	

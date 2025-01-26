@@ -9,9 +9,16 @@ func _on_player_player_hit() -> void:
 	
 var paused = false
 
+var cutscene_state = false
+@onready var player_cutscenepos = $Player.global_transform.origin
+
 
 func _ready() -> void:
+	GameManager.reset_all_stats()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	#$"placeholder goblin/Head/Camera3D".current = true
+	$Player.set_is_camera_active(true)
+	play_intro_cutscene()
 	pass
 
 func _process(delta: float) -> void:
@@ -20,6 +27,11 @@ func _process(delta: float) -> void:
 			unpause()
 		else:
 			pause()
+	if cutscene_state:
+		$Player.global_transform.origin = player_cutscenepos
+		if Input.is_action_just_pressed("pickup"):
+			intro_cutscene_over()
+			$Player.pickup_orb()
 		
 
 
@@ -39,3 +51,29 @@ func game_over():
 	get_tree().paused = true
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$GameOver.show()
+	
+func intro_cutscene_over():
+	cutscene_state = false
+	#$Player.set_is_camera_active(true)
+	$orb.enable_all_physics()
+	enable_player_movement_for_intro()
+	
+	#$Player.show()
+	
+func lock_player_movement_for_intro():
+	$Player.disable_walking()
+	pass
+	
+func enable_player_movement_for_intro():
+	$Player.enable_walking()
+	pass
+	
+func play_intro_cutscene():
+	cutscene_state = true
+	#$Player.hide()
+	$orb.disable_all_physics()
+	lock_player_movement_for_intro()
+	#$Node3D/Camera3D.current = true
+	#intro_cutscene_over()
+	
+	

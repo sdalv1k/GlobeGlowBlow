@@ -39,12 +39,16 @@ size_flags_horizontal = 4
 
 [node name="Restart" type="Button" parent="Control/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_vp0sl")
 theme_override_font_sizes/font_size = 76
 text = "Restart"
 
 [node name="Quit" type="Button" parent="Control/VBoxContainer/VBoxContainer"]
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("1_vp0sl")
 theme_override_font_sizes/font_size = 61
 text = "Quit"

@@ -16,3 +16,12 @@ func _on_button_button_down() -> void:
 	# Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().change_scene_to_file("res://Scenes/World.tscn")
 	pass # Replace with function body.
+
+
+func _on_button_mouse_entered() -> void:
+	
+	pass # Replace with function body.
+
+
+func _on_button_mouse_exited() -> void:
+	pass # Replace with function body.

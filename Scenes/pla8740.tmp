@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://3n4l72u7hxdo"]
+
+[ext_resource type="Script" path="res://placeholder_goblin.gd" id="1_4rehn"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3bkv7"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_41meu"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_whgdt"]
+
+[node name="placeholder goblin" type="CharacterBody3D"]
+script = ExtResource("1_4rehn")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_3bkv7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_41meu")
+skeleton = NodePath("../CollisionShape3D")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="hitbox" type="Area3D" parent="."]
+collision_layer = 192
+collision_mask = 128
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox"]
+transform = Transform3D(4.72, 0, 0, 0, 4.72, 0, 0, 0, 4.72, 0, 0.402791, 0)
+shape = SubResource("CylinderShape3D_whgdt")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]

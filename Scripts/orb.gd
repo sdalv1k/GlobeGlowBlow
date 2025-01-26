@@ -6,21 +6,31 @@ extends RigidBody3D
 @onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
 
 var original_transform
+var org_speed = 20.0
 var speed = 20.0
 var picked_up_by = null
 var done_learp = false
+@onready var original_pos = global_transform.origin
+
+var physics_enabaled = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	if GameManager.cutscene_slow_pickup:
+		speed = 5
 	pass # Replace with function body.
+	
+func lock_in_original_place():
+	global_transform.origin = original_pos
+	
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !picked_up_by:
+	if !physics_enabaled: 
+		lock_in_original_place()
 		return
-		
-		
+	if !picked_up_by: return
 
 	# Current position
 	var current_position = global_transform.origin
@@ -41,6 +51,7 @@ func _process(delta: float) -> void:
 	var direction = (target_position - current_position).normalized()
 
 	# Move a fixed distance toward the target per frame
+	
 	var distance_to_move = speed * delta
 
 	# Check if we're about to overshoot the target
@@ -80,10 +91,22 @@ func pick_up(by):
 	pass
 	#$CollisionShape3D.disabled = true
 	#$".".position = $"../Player".position
+
+func disable_all_physics():
+	print("Disabled orb physics")
+	#freeze_mode = FREEZE_MODE_STATIC
+	physics_enabaled = false
+	
+func enable_all_physics():
+	print("Enabled orb physics")
+	linear_velocity = Vector3(0,0,0)
+	physics_enabaled = true
+	
 	
 
 func let_go(impulse = Vector3(0.0, 0.0, 0.0)):
-	print(impulse)
+	GameManager.cutscene_slow_pickup = false
+	speed = org_speed
 	print("trowing (letting go)")
 	
 	done_learp = false
