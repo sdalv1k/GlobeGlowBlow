@@ -6,6 +6,7 @@ const ATTACK_RANGE = 2.5
 const JUMP_VELOCITY = 4.5
 const GRAVITY = 100.0
 
+var node = null
 var follow_node = null
 var state_machine
 var follow_player = false
@@ -37,6 +38,7 @@ var spawning = true
 
 var active_bubbles = {}
 var time = 0
+var is_blowing = false
 
 func disable_character_body():
 	body.collision_layer = 0
@@ -56,10 +58,13 @@ func _ready():
 	state_machine = anim_tree.get("parameters/playback")
 	
 func _new_follow_node():
-	follow_node = bubbles._on_spawn_timer_timeout()
-	if follow_node:
-		var target_point = follow_node.global_position
-		direction_to_target = (target_point - global_transform.origin).normalized()
+	var parent_node = bubbles._on_spawn_timer_timeout()
+	if parent_node:
+		node = parent_node.get_node("Bubble")
+		follow_node = parent_node.get_node("FollowPoint")
+		if follow_node:
+			var target_point = follow_node.global_position
+			direction_to_target = (target_point - global_transform.origin).normalized()
 
 func _follow_orb(delta):
 	anim_tree.set("parameters/conditions/fall", true)
@@ -100,6 +105,8 @@ func _process(delta):
 	
 	velocity = Vector3.ZERO
 	if orb:
+		if node:
+			node.start_shrinking()
 		_follow_orb(delta)
 		return
 		
@@ -130,7 +137,8 @@ func _process(delta):
 									
 					var distance_to_target = global_position.distance_to(target_fixing)
 					if distance_to_target < 1.5:
-						follow_node = null
+						node.start_expanding()
+						is_blowing = true
 						anim_tree.set("parameters/conditions/blow", true)
 				else:
 					velocity = (player.global_position - global_transform.origin).normalized() * SPEED
@@ -163,7 +171,6 @@ func _hit_finished():
 		player.hit(dir)
 		
 func goblin_hit_with_orb(orb_connect : RigidBody3D):
-	print("Hello")
 	if !orb: # to prevent several hit detections on a single goblin
 		$death_sound.play_random_child()
 		print("GOBLIN HITTTTT!!")
@@ -174,7 +181,8 @@ func goblin_hit_with_orb(orb_connect : RigidBody3D):
 func despawn():
 	queue_free()
 	
-
+func get_is_blowing():
+	return is_blowing
 
 func _on_hitbox_body_entered(body: RigidBody3D) -> void:
 	print("ENTERED the goblin")

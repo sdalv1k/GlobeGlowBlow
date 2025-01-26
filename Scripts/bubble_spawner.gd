@@ -73,7 +73,7 @@ func _on_spawn_timer_timeout():
 
 		instance.connect("tree_exited", _on_bubble_removed)
 		
-		return instance.get_node("FollowPoint")
+		return instance
 	else:
 		return null
 
