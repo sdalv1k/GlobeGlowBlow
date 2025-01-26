@@ -78,7 +78,13 @@ func _on_spawn_timer_timeout():
 		return instance
 	else:
 		return null
+		
+func _process(delta):
+	for spawn_point in spawns.get_children():
+		if spawn_point.global_position.y <= radius:
+			active_spawns[spawn_point] = false
 
 func _on_bubble_removed(spawn_point):
+	pass
 	# Mark the spawn point as free
 	active_spawns[spawn_point] = false

@@ -236,6 +236,9 @@ void fragment()
 
 	    // Blend between original color and grayscale
 	    color.rgb = mix(grayscale, color.rgb, color_blend_factor);
+		
+		//vec3 screen_color = texture(SCREEN_TEXTURE, UV).rgb;
+		//color.rgb = mix(grayscale, screen_color, color_blend_factor);
 
 	    // Keep alpha from the original sampling (or from `color.a` above)
 	    // color.a remains unchanged

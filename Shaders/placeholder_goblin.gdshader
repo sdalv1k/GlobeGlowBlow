@@ -23,7 +23,7 @@ uniform float threshold : hint_range(0.0, 1.0) = 0.5;
 void fragment() {
     // Screen UV coordinate
     vec2 uv = SCREEN_UV;
-    
+
     // Move UV so the swirl_center is the origin (0,0)
     uv -= swirl_center;
 

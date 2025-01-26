@@ -1,5 +1,6 @@
 extends AnimatableBody3D
 
+@onready var bubbles: Node3D = $Bubbles
 var speed: float = 0.2
 var moved: float = 0.0
 var move_end: float = 3.5
@@ -24,14 +25,16 @@ func _process(delta: float) -> void:
 	pass
 	
 func start_expanding():
+	print("Expanding!")
 	inflation = 1
 	
 func start_shrinking():
 	inflation = -1
 	
 func explode():
-	global_position.y = 0.0
-	GameManager.call_game_over()
+	global_position.y = -radius
+	inflation = 0
+	# GameManager.call_game_over()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	pass

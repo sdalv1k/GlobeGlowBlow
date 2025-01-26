@@ -174,7 +174,6 @@ func _hit_finished():
 func goblin_hit_with_orb(orb_connect : RigidBody3D):
 	if !orb: # to prevent several hit detections on a single goblin
 		$death_sound.play_random_child()
-		print("GOBLIN HITTTTT!!")
 		GameManager.increment_goblin_score()
 		print("Score is now:", GameManager.goblin_score)
 		orb = orb_connect
@@ -186,10 +185,14 @@ func get_is_blowing():
 	return is_blowing
 
 func _on_hitbox_body_entered(body: RigidBody3D) -> void:
-	print("ENTERED the goblin")
 	goblin_hit_with_orb(body)
 
 
 func _on_hitbox_area_entered(area: Area3D) -> void:
-	print("ENTERED the goblin")
 	pass # Replace with function body.
+
+
+func _on_hitbox_body_exited(body: Node3D) -> void:
+	print("EXITED")
+	anim_tree.set("parameters/conditions/blow", false)
+	_new_follow_node()

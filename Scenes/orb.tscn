@@ -7,6 +7,10 @@
 radius = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f45i4"]
+albedo_color = Color(0.945098, 0.521569, 0.172549, 1)
+emission_enabled = true
+emission = Color(1, 0.490196, 0, 1)
+emission_energy_multiplier = 5.0
 backlight_enabled = true
 backlight = Color(0.868985, 0.868985, 0.868985, 1)
 
