@@ -136,4 +136,5 @@ func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_inde
 
 
 func _on_body_entered(body: Node) -> void:
+	
 	pass # Replace with function body.

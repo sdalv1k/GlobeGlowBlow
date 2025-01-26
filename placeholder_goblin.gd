@@ -74,3 +74,11 @@ func goblin_hit_with_orb(orb_connect : RigidBody3D):
 	
 func despawn():
 	queue_free()
+	
+
+
+
+func _on_hitbox_body_entered(body: RigidBody3D) -> void:
+	print("goblin hit")
+	goblin_hit_with_orb(body)
+	pass # Replace with function body.

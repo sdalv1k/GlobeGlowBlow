@@ -133,5 +133,11 @@ func despawn():
 	
 
 
-func _on_hitbox_body_entered(body: Node3D) -> void:
+func _on_hitbox_body_entered(body: RigidBody3D) -> void:
+	print("ENTERED the goblin")
 	goblin_hit_with_orb(body)
+
+
+func _on_hitbox_area_entered(area: Area3D) -> void:
+	print("ENTERED the goblin")
+	pass # Replace with function body.
