@@ -41,8 +41,12 @@ grow_vertical = 2
 [node name="Button" type="Button" parent="Control/VBoxContainer"]
 show_behind_parent = true
 layout_mode = 2
+theme_override_colors/font_hover_pressed_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(1, 0, 0, 1)
 theme_override_fonts/font = ExtResource("2_shqpf")
 theme_override_font_sizes/font_size = 96
 text = "Start Game"
 
 [connection signal="button_down" from="Control/VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="mouse_entered" from="Control/VBoxContainer/Button" to="." method="_on_button_mouse_entered"]
+[connection signal="mouse_exited" from="Control/VBoxContainer/Button" to="." method="_on_button_mouse_exited"]

@@ -11,6 +11,7 @@ var paused = false
 
 
 func _ready() -> void:
+	GameManager.reset_all_stats()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	pass
 

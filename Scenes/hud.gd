@@ -1,19 +1,16 @@
 extends CanvasLayer
 
-@onready var soul_count = 2
-
-
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	pass
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
+	var soul_count = GameManager.goblin_score
+	$Control/soul_number.text = str(soul_count)
 	pass
 
 
-func increment_soul_count():
-	soul_count += 1
-	$Control/soul_number.Text = str(soul_count)
+
 	
