@@ -16,6 +16,7 @@ func _on_quit_button_down() -> void:
 
 
 func _on_restart_button_down() -> void:
+	print("Restart button")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	get_tree().paused = false
 	get_tree().change_scene_to_file("res://Scenes/World.tscn")
