@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://ddede4ndbm0t8"]
+[gd_scene load_steps=3 format=3 uid="uid://d03d6lq3ts0it"]
 
 [ext_resource type="Script" path="res://title_screen.gd" id="1_kqu3d"]
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="2_shqpf"]

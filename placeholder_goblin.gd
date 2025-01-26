@@ -21,6 +21,7 @@ func disable_character_body():
 func _physics_process(delta: float) -> void:
 	
 	if orb:
+		
 		var target_position = orb.global_transform.origin
 		var current_position = global_transform.origin
 		#top_level = true
@@ -73,9 +74,3 @@ func goblin_hit_with_orb(orb_connect : RigidBody3D):
 	
 func despawn():
 	queue_free()
-
-
-func _on_hitbox_body_entered(body: Node3D) -> void:
-	
-	
-	goblin_hit_with_orb(body)

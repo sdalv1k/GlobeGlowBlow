@@ -18,7 +18,7 @@ func _ready() -> void:
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	#$"placeholder goblin/Head/Camera3D".current = true
 	$Player.set_is_camera_active(true)
-	play_intro_cutscene()
+	#play_intro_cutscene()
 	pass
 
 func _process(delta: float) -> void:

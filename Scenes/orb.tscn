@@ -28,3 +28,5 @@ shadow_enabled = true
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_f45i4")
 mesh = SubResource("SphereMesh_dg2co")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

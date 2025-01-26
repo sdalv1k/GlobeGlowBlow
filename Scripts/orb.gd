@@ -3,7 +3,6 @@ extends RigidBody3D
 @onready var original_parent = get_parent()
 @onready var original_collision_layer = collision_layer
 @onready var original_colission_mask = collision_mask
-@onready var pivot: Node3D = $Head/Camera3D/player/Armature/Skeleton3D/BoneAttachment3D/Pivot
 
 var original_transform
 var org_speed = 20.0
@@ -134,3 +133,7 @@ func let_go(impulse = Vector3(0.0, 0.0, 0.0)):
 
 func _on_area_3d_area_shape_entered(area_rid: RID, area: Area3D, area_shape_index: int, local_shape_index: int, extra_arg_0: NodePath) -> void:
 	pick_up(extra_arg_0)
+
+
+func _on_body_entered(body: Node) -> void:
+	pass # Replace with function body.

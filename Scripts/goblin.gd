@@ -121,6 +121,7 @@ func _hit_finished():
 		player.hit(dir)
 		
 func goblin_hit_with_orb(orb_connect : RigidBody3D):
+	print("Hello")
 	if !orb: # to prevent several hit detections on a single goblin
 		print("GOBLIN HITTTTT!!")
 		GameManager.increment_goblin_score()
@@ -132,7 +133,5 @@ func despawn():
 	
 
 
-
 func _on_hitbox_body_entered(body: Node3D) -> void:
 	goblin_hit_with_orb(body)
-	pass # Replace with function body.
