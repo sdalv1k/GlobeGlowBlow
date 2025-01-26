@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bjswgc18o480n"
+path="res://.godot/imported/04 Stupid blow goblins blowing my lawn.wav-f03ba170b94d668ab2bb3fd5171506f0.sample"
+
+[deps]
+
+source_file="res://Audio/Voicelines/04 Stupid blow goblins blowing my lawn.wav"
+dest_files=["res://.godot/imported/04 Stupid blow goblins blowing my lawn.wav-f03ba170b94d668ab2bb3fd5171506f0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

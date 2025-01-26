@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ej4hevaar326"
+path="res://.godot/imported/Goblin sounds Chatter 7 Master.wav-aaa23f5e5f3f986a5bca0dbc5268b87e.sample"
+
+[deps]
+
+source_file="res://Audio/Goblin/Chatter/Goblin sounds Chatter 7 Master.wav"
+dest_files=["res://.godot/imported/Goblin sounds Chatter 7 Master.wav-aaa23f5e5f3f986a5bca0dbc5268b87e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

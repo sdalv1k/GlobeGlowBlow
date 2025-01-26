@@ -16,7 +16,8 @@ var physics_enabaled = true
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	if GameManager.cutscene_slow_pickup:
-		speed = 5
+		pass
+		#speed = 5
 	pass # Replace with function body.
 	
 func lock_in_original_place():
@@ -68,6 +69,7 @@ func _move_to_parent(from_parent, to_parent):
 		
 
 func pick_up(by):
+	$audio/retract.play()
 	print("Picking up")
 	
 	if picked_up_by == by:

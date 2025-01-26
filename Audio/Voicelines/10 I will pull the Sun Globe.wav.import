@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://7eyaqyemwhq4"
+path="res://.godot/imported/10 I will pull the Sun Globe.wav-96ee15ff1a9a500d8de83a02e7b14b1a.sample"
+
+[deps]
+
+source_file="res://Audio/Voicelines/10 I will pull the Sun Globe.wav"
+dest_files=["res://.godot/imported/10 I will pull the Sun Globe.wav-96ee15ff1a9a500d8de83a02e7b14b1a.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0
