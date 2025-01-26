@@ -17,6 +17,19 @@ var direction_to_target
 @onready var anim_tree = $AnimationTree
 @onready var bubbles: Node3D = $"../Bubbles"
 
+# fra placeholder:
+var original_size = scale
+
+var orb : RigidBody3D = null
+var speed = 12
+var size_shrink : float = 1
+@onready var body = $"."
+
+func disable_character_body():
+	body.collision_layer = 0
+	body.collision_mask = 0
+	body.velocity = Vector3.ZERO
+
 func _ready():
 	_new_follow_node()
 	state_machine = anim_tree.get("parameters/playback")
@@ -31,9 +44,45 @@ func _new_follow_node():
 	var target_point = follow_node.global_position
 	direction_to_target = (target_point - global_transform.origin).normalized()
 
+func _follow_orb(delta):
+	
+	var target_position = orb.global_transform.origin
+	var current_position = global_transform.origin
+	#top_level = true
+	disable_character_body()
+	
+	
+	# Shrink or despawn
+	if size_shrink < 0.1:
+		despawn()
+		return
+	else:
+		var distance_to = current_position.distance_to(target_position)
+		if distance_to < 1:
+			size_shrink -= 0.02
+			$".".scale = original_size * size_shrink
+	
+	# Calculate the direction to the target
+	var direction = (target_position - current_position).normalized()
+
+	# Move a fixed distance toward the target per frame
+	var distance_to_move = speed * delta
+
+	# Check if we're about to overshoot the target
+	if current_position.distance_to(target_position) <= distance_to_move:
+		# Snap to the target position
+		global_transform.origin = target_position
+	else:
+		# Move toward the target at a constant speed
+		global_transform.origin += direction * distance_to_move
+		
+
 	
 func _process(delta):
 	velocity = Vector3.ZERO
+	if orb:
+		_follow_orb(delta)
+		return
 	
 	match state_machine.get_current_node():
 		"run":
@@ -70,3 +119,20 @@ func _hit_finished():
 	if global_position.distance_to(player.global_position) < ATTACK_RANGE + 1.0:
 		var dir = global_position.direction_to(player.global_position)
 		player.hit(dir)
+		
+func goblin_hit_with_orb(orb_connect : RigidBody3D):
+	if !orb: # to prevent several hit detections on a single goblin
+		print("GOBLIN HITTTTT!!")
+		GameManager.increment_goblin_score()
+		print("Score is now:", GameManager.goblin_score)
+		orb = orb_connect
+	
+func despawn():
+	queue_free()
+	
+
+
+
+func _on_hitbox_body_entered(body: Node3D) -> void:
+	goblin_hit_with_orb(body)
+	pass # Replace with function body.
