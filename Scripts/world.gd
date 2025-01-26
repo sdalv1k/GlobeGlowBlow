@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 		$Player.global_transform.origin = player_cutscenepos
 		if Input.is_action_just_pressed("pickup"):
 			intro_cutscene_over()
+			$Player.pickup_orb()
 		
 
 
