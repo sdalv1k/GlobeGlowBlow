@@ -3,6 +3,8 @@ extends Node3D
 @onready var hit_rect = $UI/ColorRect
 
 @onready var atmosphere_sound = $sound_ambient/Atmosphere
+@onready var main_music = $Music/MainMusicLoop
+
 
 
 func _on_player_player_hit() -> void:
@@ -17,6 +19,7 @@ var cutscene_state = false
 
 
 func _ready() -> void:
+	main_music.play()
 	atmosphere_sound.play()
 	GameManager.reset_all_stats()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
