@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dcu10na2kv5cf"]
 
 [ext_resource type="Texture2D" uid="uid://g00vftuw7jnd" path="res://Textures/goblin icon.png" id="1_0s4yb"]
-[ext_resource type="Script" path="res://Scenes/hud.gd" id="1_s7a4i"]
+[ext_resource type="Script" path="res://Scripts/hud.gd" id="1_s7a4i"]
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="2_8loxw"]
 
 [node name="HUD" type="CanvasLayer"]

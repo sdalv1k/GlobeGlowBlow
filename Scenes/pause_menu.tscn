@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://di5m2104ntiy1"]
 
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="1_0wwxd"]
-[ext_resource type="Script" path="res://Scenes/pause_menu.gd" id="1_q8adr"]
+[ext_resource type="Script" path="res://Scripts/pause_menu.gd" id="1_q8adr"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vekch"]
 bg_color = Color(1, 1, 1, 0)
