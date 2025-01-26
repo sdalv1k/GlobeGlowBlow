@@ -40,7 +40,7 @@ func _physics_process(delta: float) -> void:
 		pickup_cooldown -= delta
 		if pickup_cooldown < 0:
 			pickup_cooldown = 0
-	print(pickup_cooldown) 
+	#print(pickup_cooldown) 
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
