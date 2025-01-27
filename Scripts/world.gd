@@ -15,8 +15,11 @@ var paused = false
 var cutscene_state = false
 @onready var player_cutscenepos = $Player.global_transform.origin
 
+@onready var mainmusic = $mainMusic/MainThemeLoop
+
 
 func _ready() -> void:
+	mainmusic.play()
 	atmosphere_sound.play()
 	GameManager.reset_all_stats()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)

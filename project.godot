@@ -20,6 +20,10 @@ config/icon="res://icon.svg"
 SimpleGrass="*res://addons/simplegrasstextured/singleton.tscn"
 GameManager="*res://Scripts/GameManager.gd"
 
+[display]
+
+window/size/mode=3
+
 [dotnet]
 
 project/assembly_name="GlobeGlowBlow"
