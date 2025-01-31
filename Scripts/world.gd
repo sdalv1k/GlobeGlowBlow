@@ -19,6 +19,7 @@ var cutscene_state = false
 
 
 func _ready() -> void:
+	
 	mainmusic.play()
 	atmosphere_sound.play()
 	GameManager.reset_all_stats()
