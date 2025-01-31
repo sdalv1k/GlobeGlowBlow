@@ -28,7 +28,9 @@ script = ExtResource("1_6yy2d")
 shape = SubResource("SphereShape3D_gfegg")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-shadow_enabled = true
+light_energy = 5.808
+omni_range = 12.83
+omni_attenuation = 2.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 material_override = SubResource("StandardMaterial3D_f45i4")
