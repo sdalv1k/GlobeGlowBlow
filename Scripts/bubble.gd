@@ -34,7 +34,7 @@ func start_shrinking():
 func explode():
 	global_position.y = -radius
 	inflation = 0
-	# GameManager.call_game_over()
+	GameManager.call_game_over()
 
 func _on_area_3d_body_entered(body: Node3D) -> void:
 	pass

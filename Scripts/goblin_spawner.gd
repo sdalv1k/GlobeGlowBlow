@@ -19,7 +19,7 @@ func _process(delta: float) -> void:
 		timer = 0
 		spawn_timer -= 1 * delta
 		print(spawn_timer)
-		spawn_timer = max(spawn_timer, 0.5)
+		spawn_timer = max(spawn_timer, 1.5)
 		_on_spawn_timer_timeout()
 		
 
