@@ -1,0 +1,51 @@
+[gd_resource type="ShaderMaterial" load_steps=5 format=3 uid="uid://iomo7vionp5h"]
+
+[ext_resource type="Texture2D" uid="uid://ce87asxgd38xx" path="res://slash/textures/distortion.png" id="1_bf6sb"]
+
+[sub_resource type="Shader" id="Shader_ubvq5"]
+code = "shader_type spatial;
+render_mode blend_mix,depth_draw_opaque,cull_back,diffuse_burley,specular_schlick_ggx,unshaded;
+
+uniform sampler2D screen_tex : hint_screen_texture;
+
+uniform vec4 uv_tiling_and_offset_speed;
+
+uniform sampler2D distortion_tex;
+uniform vec4 noise_tiling_and_offset_speed;
+uniform float distortion_intensity = 0.1;
+uniform sampler2D distortion_curve;
+
+varying float lifetime; 
+
+void vertex() {
+	lifetime = INSTANCE_CUSTOM.y;
+	UV = UV * uv_tiling_and_offset_speed.xy + uv_tiling_and_offset_speed.zw;
+}
+
+void fragment() {
+	vec2 distortion_uv = UV * noise_tiling_and_offset_speed.xy + noise_tiling_and_offset_speed.zw * TIME;
+	vec4 noise_tex = texture(distortion_tex, distortion_uv) 
+			* texture(distortion_curve, vec2(lifetime));
+	noise_tex *= distortion_intensity;
+	
+	vec4 mask_tex = texture(distortion_tex, UV);
+	noise_tex *= mask_tex.g;
+		
+	ALBEDO = texture(screen_tex, SCREEN_UV + noise_tex.rr).rgb;
+}"
+
+[sub_resource type="Curve" id="Curve_svvh8"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_j8ahf"]
+curve = SubResource("Curve_svvh8")
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_ubvq5")
+shader_parameter/uv_tiling_and_offset_speed = Vector4(1, 1, 0, 0)
+shader_parameter/noise_tiling_and_offset_speed = Vector4(2, 2, -1, 0)
+shader_parameter/distortion_intensity = 0.015
+shader_parameter/distortion_tex = ExtResource("1_bf6sb")
+shader_parameter/distortion_curve = SubResource("CurveTexture_j8ahf")

@@ -96,7 +96,7 @@ float rand(vec2 co) {
 // ----------------------------------------------------
 // The fragment() function applies all effects
 // ----------------------------------------------------
-void fragment() 
+void fragment()
 {
     // Base UV for sampling the screen
     vec2 uv = SCREEN_UV;
@@ -122,18 +122,18 @@ void fragment()
     // ---------------------------------------------
     // 3) Chromatic Aberration / Color Bleeding
     // ---------------------------------------------
-    vec2 offset = enable_chromatic_aberration 
-        ? vec2(aberration_strength, 0.0) 
+    vec2 offset = enable_chromatic_aberration
+        ? vec2(aberration_strength, 0.0)
         : vec2(0.0);
 
     // For alpha preservation, sample the base screen color once:
     vec4 base_screen_col = texture(SCREEN_TEXTURE, uv);
-    
+
     // Now sample R/G/B with slight offset
     float rChan = texture(SCREEN_TEXTURE, uv + offset).r;
     float gChan = base_screen_col.g;
     float bChan = texture(SCREEN_TEXTURE, uv - offset).b;
-    
+
     // Start our color with the combined channels and original alpha
     vec4 color = vec4(rChan, gChan, bChan, base_screen_col.a);
 

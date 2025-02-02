@@ -1,0 +1,174 @@
+[gd_scene load_steps=21 format=3 uid="uid://mq0dfc5xw0p1"]
+
+[ext_resource type="Script" path="res://scripts/Shake.gd" id="1_wd6ko"]
+[ext_resource type="Material" uid="uid://dhy6xy008ctmo" path="res://techniques/_common/checkerboard.tres" id="2_1e3sr"]
+[ext_resource type="Material" uid="uid://djj041r1psrn6" path="res://techniques/vertex_offset/vertex_offset.material" id="3_u07c6"]
+[ext_resource type="ArrayMesh" uid="uid://b2vvwnqe2ustv" path="res://techniques/vertex_offset/meshes/low_poly_sphere.res" id="4_l0x2k"]
+[ext_resource type="ArrayMesh" uid="uid://c4ymgs6r4ak4x" path="res://techniques/vertex_offset/meshes/low_poly_sphere_smooth.res" id="5_imbax"]
+
+[sub_resource type="Curve" id="Curve_mmt5y"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_loxt6"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_c4dka"]
+colors = PackedColorArray(0, 0, 0, 1, 0.2088, 0.276853, 0.58, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ygxye"]
+gradient = SubResource("Gradient_c4dka")
+fill_from = Vector2(0, 1)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="PanoramaSkyMaterial" id="PanoramaSkyMaterial_7wx6v"]
+panorama = SubResource("GradientTexture2D_ygxye")
+
+[sub_resource type="Sky" id="Sky_n53a2"]
+sky_material = SubResource("PanoramaSkyMaterial_7wx6v")
+
+[sub_resource type="Environment" id="Environment_5b8sp"]
+background_mode = 2
+sky = SubResource("Sky_n53a2")
+reflected_light_source = 2
+tonemap_mode = 2
+glow_enabled = true
+glow_bloom = 0.1
+glow_blend_mode = 1
+fog_light_color = Color(0.5, 0.5, 0.5, 1)
+fog_light_energy = 0.15
+volumetric_fog_enabled = true
+volumetric_fog_density = 0.01
+volumetric_fog_albedo = Color(1, 0.8, 0.8, 1)
+volumetric_fog_detail_spread = 6.0
+adjustment_enabled = true
+adjustment_contrast = 1.1
+
+[sub_resource type="CameraAttributesPhysical" id="CameraAttributesPhysical_8xye5"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_avj0g"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fpjf6"]
+size = Vector3(2, 1, 2)
+
+[sub_resource type="Shader" id="Shader_uwjy8"]
+code = "shader_type canvas_item;
+
+uniform sampler2D SCREEN_TEXTURE : hint_screen_texture;
+uniform float vignette_intensity = 0.4;
+uniform float vignette_opacity : hint_range(0.0, 1.0) = 0.5;
+uniform vec4 vignette_rgb;
+
+float vignette(vec2 uv){
+	uv *= 1.0 - uv.xy;
+	float vignette = uv.x * uv.y * 15.0;
+	return pow(vignette, vignette_intensity * vignette_opacity);
+}
+
+void fragment(){
+	vec4 color = texture(SCREEN_TEXTURE, SCREEN_UV);
+	vec4 text = texture(TEXTURE, UV);
+	
+	text.rgba *= (vignette_rgb.rgba);
+	text.rgba *= (1.0 - vignette(UV));
+	
+	COLOR = vec4((text.rgb)*color.rgb,text.a);
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gwk2a"]
+shader = SubResource("Shader_uwjy8")
+shader_parameter/vignette_intensity = 0.275
+shader_parameter/vignette_opacity = 0.75
+shader_parameter/vignette_rgb = Vector4(0, 0, 0, 1)
+
+[sub_resource type="Gradient" id="Gradient_cxjok"]
+offsets = PackedFloat32Array(1)
+colors = PackedColorArray(1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_q56gl"]
+gradient = SubResource("Gradient_cxjok")
+
+[sub_resource type="SphereMesh" id="SphereMesh_xsacw"]
+
+[node name="Root" type="Node3D"]
+
+[node name="CameraContainer" type="Node3D" parent="." node_paths=PackedStringArray("target")]
+transform = Transform3D(0.971947, 0.158278, -0.173973, 0, 0.739685, 0.672954, 0.235199, -0.654076, 0.718934, -0.51151, 2.9786, 2.11379)
+script = ExtResource("1_wd6ko")
+target = NodePath("Camera")
+base_shake_intensity = 0.125
+shake_curves = Array[Curve]([SubResource("Curve_mmt5y"), SubResource("Curve_loxt6")])
+
+[node name="Camera" type="Camera3D" parent="CameraContainer"]
+transform = Transform3D(1, 5.96046e-08, 0, 0, 1, -2.98023e-08, -2.98023e-08, 0, 1, -1.49012e-07, -2.38419e-07, 2.73064)
+current = true
+fov = 37.8493
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_5b8sp")
+camera_attributes = SubResource("CameraAttributesPhysical_8xye5")
+
+[node name="Floor" type="MeshInstance3D" parent="Environment"]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 0, 0, 0)
+material_override = ExtResource("2_1e3sr")
+mesh = SubResource("PlaneMesh_avj0g")
+skeleton = NodePath("../..")
+
+[node name="GPUCollisionBox" type="GPUParticlesCollisionBox3D" parent="Environment/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+
+[node name="StaticBody" type="StaticBody3D" parent="Environment/Floor"]
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+axis_lock_angular_x = true
+axis_lock_angular_y = true
+axis_lock_angular_z = true
+
+[node name="CollisionShape" type="CollisionShape3D" parent="Environment/Floor/StaticBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_fpjf6")
+
+[node name="Light" type="DirectionalLight3D" parent="Environment"]
+transform = Transform3D(0.494604, -0.867801, 0.047846, 0.170802, 0.151031, 0.973661, -0.85217, -0.473405, 0.222923, 0, 10, 0)
+shadow_enabled = true
+shadow_opacity = 0.3
+directional_shadow_blend_splits = true
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Vignette" type="TextureRect" parent="UI"]
+material = SubResource("ShaderMaterial_gwk2a")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_q56gl")
+
+[node name="VertexOffset" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("SphereMesh_xsacw")
+surface_material_override/0 = ExtResource("3_u07c6")
+
+[node name="VertexOffsetLowPoly" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.5, 1, 0)
+visible = false
+mesh = ExtResource("4_l0x2k")
+surface_material_override/0 = ExtResource("3_u07c6")
+
+[node name="VertexOffsetLowPolySmooth" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.5, 0, 0, 0, 0.5, 0, 0, 0, 0.5, 2, 1, 0)
+visible = false
+mesh = ExtResource("5_imbax")
+surface_material_override/0 = ExtResource("3_u07c6")

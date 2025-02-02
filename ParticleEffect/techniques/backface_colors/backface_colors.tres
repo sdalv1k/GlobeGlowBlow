@@ -1,0 +1,71 @@
+[gd_resource type="Shader" format=3 uid="uid://cftnrl4fs31pq"]
+
+[resource]
+code = "shader_type spatial;
+render_mode
+		blend_mix,
+		// Do opaque depth pre-pass for transparent geometry.
+		// depth_draw_opaque gives weird results
+		depth_prepass_alpha,
+		cull_disabled,
+		unshaded,
+		alpha_to_coverage_and_one,
+		world_vertex_coords; // Important
+
+uniform vec4 albedo : source_color;
+uniform sampler2D texture_albedo :
+		source_color,
+		filter_linear_mipmap,
+		repeat_enable;
+
+uniform vec3 uv_scale;
+uniform vec3 uv_offset;
+
+uniform sampler2D texture_color_front;
+uniform sampler2D texture_color_back;
+
+uniform float erosion_val : hint_range(0.0, 1.0, 0.1);
+uniform float erosion_offset = 0.1;
+
+varying float dot_value;
+
+void vertex() {
+	UV = UV * uv_scale.xy + uv_offset.xy * TIME;
+
+	vec3 cam_dir = CAMERA_POSITION_WORLD - VERTEX;
+
+	dot_value = dot(NORMAL, cam_dir);
+	dot_value = sign(dot_value);
+
+	// fma = fused multiply-add
+	dot_value = fma(dot_value, 0.5, 0.5);
+}
+
+void fragment() {
+	vec2 base_uv = UV;
+	vec4 albedo_tex = texture(texture_albedo,base_uv);
+	albedo_tex *= COLOR;
+	ALBEDO = albedo.rgb * albedo_tex.rgb;
+
+	// Solved the rendering issue of backfaces showing in front
+	ALPHA_SCISSOR_THRESHOLD = 0.5;
+	ALPHA_ANTIALIASING_EDGE = 0.1;
+
+	vec4 color_tex = mix(
+		texture(texture_color_back, vec2(0.0)),
+		texture(texture_color_front, vec2(0.0)),
+		dot_value
+		);
+
+	ALBEDO = albedo_tex.rgb * color_tex.rgb;
+	ALPHA *= albedo.a * albedo_tex.a;
+
+	float erosion = smoothstep(
+			erosion_val,
+			erosion_val + erosion_offset,
+			albedo_tex.r
+			);
+
+	ALPHA *= erosion;
+}"
+metadata/_edit_res_path = "res://techniques/backface_colors/backface_colors.tres"

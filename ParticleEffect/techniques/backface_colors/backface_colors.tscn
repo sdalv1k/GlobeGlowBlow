@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://b5fg0s4nqcwf6"]
+
+[ext_resource type="Material" uid="uid://dd7p8p2gfglnw" path="res://Textures/backface_colors.material" id="3_jpbfb"]
+[ext_resource type="ArrayMesh" uid="uid://bd37msofcei3c" path="res://ParticleEffect/meshes/ring/ring.res" id="4_7pd6d"]
+
+[node name="Root" type="Node3D"]
+
+[node name="BackfaceColors" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.49989, 1.60571, 0)
+material_override = ExtResource("3_jpbfb")
+mesh = ExtResource("4_7pd6d")

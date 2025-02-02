@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://d03d6lq3ts0it"]
+[gd_scene load_steps=7 format=3 uid="uid://d03d6lq3ts0it"]
 
 [ext_resource type="Script" path="res://title_screen.gd" id="1_kqu3d"]
 [ext_resource type="FontFile" uid="uid://cir7qk0yf73nf" path="res://fonts/Gothic Godness.ttf" id="2_shqpf"]
 [ext_resource type="AudioStream" uid="uid://cawnxbabwe7dw" path="res://Audio/Menu/3. Menu - Confirm Master.wav" id="3_kosud"]
+[ext_resource type="Texture2D" uid="uid://jatf443l7y15" path="res://ParticleEffect/meshes/invertMouse.png" id="3_vdnx1"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_j0ra2"]
 bg_color = Color(1, 1, 1, 0)
@@ -33,17 +34,17 @@ color = Color(0, 0, 0, 1)
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 7
 anchor_left = 0.5
-anchor_top = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-anchor_bottom = 0.5
+anchor_bottom = 1.0
 offset_left = -240.5
-offset_top = -73.5
+offset_top = -182.0
 offset_right = 240.5
-offset_bottom = 73.5
+offset_bottom = -35.0
 grow_horizontal = 2
-grow_vertical = 2
+grow_vertical = 0
 
 [node name="Button" type="Button" parent="Control/VBoxContainer"]
 show_behind_parent = true
@@ -55,6 +56,35 @@ theme_override_font_sizes/font_size = 96
 theme_override_styles/hover = SubResource("StyleBoxFlat_j0ra2")
 theme_override_styles/normal = SubResource("StyleBoxFlat_0wjyf")
 text = "Start Game"
+
+[node name="Label2" type="Label" parent="Control"]
+offset_left = 635.0
+offset_top = 168.0
+offset_right = 1212.0
+offset_bottom = 346.0
+theme_override_fonts/font = ExtResource("2_shqpf")
+theme_override_font_sizes/font_size = 69
+text = "Pull glowing globe"
+
+[node name="Label" type="Label" parent="Control"]
+layout_mode = 0
+offset_left = 84.0
+offset_top = 94.0
+offset_right = 661.0
+offset_bottom = 272.0
+theme_override_fonts/font = ExtResource("2_shqpf")
+theme_override_font_sizes/font_size = 69
+text = "Throw glowing globe"
+
+[node name="InvertMouse" type="Sprite2D" parent="Control"]
+position = Vector2(270, 279)
+scale = Vector2(0.323451, 0.323451)
+texture = ExtResource("3_vdnx1")
+
+[node name="InvertMouse2" type="Sprite2D" parent="Control"]
+position = Vector2(818, 346)
+scale = Vector2(-0.334476, 0.303407)
+texture = ExtResource("3_vdnx1")
 
 [node name="button_sound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_kosud")
